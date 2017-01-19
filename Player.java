@@ -16,8 +16,10 @@ public class Player {
     //ジャンプ力
     private static final int JUMP_SPEED = 14;
     
-    //方向
-    private static final int RIGHT = 0;
+    //キャラ種類
+    private static final int Red = 0;
+    private static final int Blue = 1;
+    private static final int Yellow = 2;
     
     //位置
     private double x;
@@ -30,8 +32,8 @@ public class Player {
     //着地しているか
     private boolean onGround;
     
-    //向いている方向
-    private int dir = RIGHT;
+    //使用するキャラ
+    private int p_color;
     
     //アニメーション用カウンタ
     private int count;
@@ -51,7 +53,10 @@ public class Player {
     //キーの入力状態
     private boolean spacePressed;
     
-    public Player(double x, double y, Map map) {   //OK
+    public Player(double x, double y, Map map, int p_num) {   //OK
+        
+        p_color = p_num;
+        
         this.x = x;
         this.y = y;
         this.map = map;
@@ -134,7 +139,7 @@ public class Player {
     }
     
     private void loadImage() {  //OK
-        ImageIcon icon = new ImageIcon(getClass().getResource("image/player.gif"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("image/players.png"));
         image = icon.getImage();
     }
     
@@ -143,8 +148,8 @@ public class Player {
         g2.drawImage(image,
                      (int)x + offsetX, (int)y + offsetY,
                      (int)x + offsetX + WIDTH, (int)y + offsetY + HEIGHT,
-                     count * WIDTH, dir * HEIGHT,
-                     count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
+                     count * WIDTH, p_color * HEIGHT,
+                     count * WIDTH + WIDTH, p_color * HEIGHT + HEIGHT,
                      null);
     }
     

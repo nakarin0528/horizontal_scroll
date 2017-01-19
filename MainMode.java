@@ -23,7 +23,7 @@ public class MainMode implements GameMode{
         //マップ生成
         map = new Map();
         //キャラクター生成
-        player = new Player(192, 32, map);
+        player = new Player(192, 32, map, 1);
         
     }
     
@@ -47,9 +47,9 @@ public class MainMode implements GameMode{
     public void run(GameManager gm){
         player.move();
         
-        if(player.HitCheck()){
-            gm.ChangeMode(new ExitState());
-        }
+//        if(player.HitCheck()){
+//            gm.ChangeMode(new ExitState());
+ //       }
     }
     
     
