@@ -15,15 +15,19 @@ public class MainMode implements GameMode{
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
     
-    public MainMode(){
-        init();
+    public MainMode(int p_num){
+        init(p_num);
     }
     
-    public void init(){
+    public void init() {
+        // TODO Auto-generated method stub
+    }
+    
+    public void init(int p_num){
         //マップ生成
         map = new Map();
         //キャラクター生成
-        player = new Player(192, 32, map, 1);
+        player = new Player(192, 32, map, p_num);
         
     }
     

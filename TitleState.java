@@ -59,7 +59,7 @@ public class TitleState implements GameMode{
             switch(_cursorPos)
             {
                 case START:
-                    gm.ChangeMode(new MainMode());
+                    gm.ChangeMode(new MainMode(1));
                     break;
 //                case END:
 //                    gm.ChangeMode(new ExitState());
