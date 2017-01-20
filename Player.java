@@ -73,6 +73,26 @@ public class Player {
         thread.start();
     }
     
+    //Select用
+    public Player(double x,double y, int p_num){
+        
+        p_color = p_num;
+        
+        this.x = x;
+        this.y = y;
+        vx = 0;
+        vy = 0;
+        onGround = false;
+        onCeiling = false;
+        count = 0;
+        
+        loadImage();
+        
+        AnimationThread thread = new AnimationThread();
+        thread.start();
+        
+    }
+    
     //停止
     public void stop() {
         vx = 0;
@@ -148,6 +168,16 @@ public class Player {
         g2.drawImage(image,
                      (int)x + offsetX, (int)y + offsetY,
                      (int)x + offsetX + WIDTH, (int)y + offsetY + HEIGHT,
+                     count * WIDTH, p_color * HEIGHT,
+                     count * WIDTH + WIDTH, p_color * HEIGHT + HEIGHT,
+                     null);
+    }
+    
+    //Select用
+    public void show(Graphics2D g2){
+        g2.drawImage(image,
+                     (int)x , (int)y ,
+                     (int)x + WIDTH, (int)y + HEIGHT,
                      count * WIDTH, p_color * HEIGHT,
                      count * WIDTH + WIDTH, p_color * HEIGHT + HEIGHT,
                      null);

@@ -6,27 +6,25 @@ import java.awt.event.KeyEvent;
 
 public class TitleState implements GameMode{
     
-    private final static int START	= 0;
+    private final static int SELECT	= 0;
     private final static int END		= 1;
-    private int _cursorPos = START;
+    private int _cursorPos = SELECT;
     
-    // メインタイトルの位置
-    private final static int TITLEPOSX	= 50;
+    private final static int TITLEPOSX	= 200;
     private final static int TITLEPOSY	= 150;
     
-    // メインメニューの表示位置，表示感覚，カーソル位置（x座標のみ）
-    private final static int MENUPOSX		= 200;
-    private final static int MENUPOSY		= 280;
+    private final static int MENUPOSX		= 300;
+    private final static int MENUPOSY		= 350;
     private final static int MENUINTVL	= 50;
-    private final static int CURSOR		= 150;
+    private final static int CURSOR		= 250;
     
-    // キーフラグ
     private boolean m_bKeyUp;
     public void KeyUp(boolean on){m_bKeyUp = on;}
     private boolean m_bKeyDown;
     public void KeyDown(boolean on){m_bKeyDown = on;}
-    private boolean m_bKeyZ;
-    public void KeyZ(boolean on){m_bKeyZ = on;}
+    private boolean m_bKeySpace;
+    public void KeySpace(boolean on){m_bKeySpace = on;}
+    
     
     public TitleState()
     {
@@ -35,15 +33,14 @@ public class TitleState implements GameMode{
     
     @Override
     public void init() {
-        // TODO Auto-generated method stub
     }
     
-    // キー移動．決定など
     public void run(GameManager gm)
     {
-        if(m_bKeyUp)
+
+    	if(m_bKeyUp)
         {
-            if(_cursorPos != START)
+            if(_cursorPos != SELECT)
                 _cursorPos--;
         }
         else if(m_bKeyDown)
@@ -52,71 +49,58 @@ public class TitleState implements GameMode{
                 _cursorPos++;
         }
         
-        // Zを押した時
-        if(m_bKeyZ)
+        if(m_bKeySpace)
         {
-            // カーソル位置で分岐
-            switch(_cursorPos)
+	    switch(_cursorPos)
             {
-                case START:
-                    gm.ChangeMode(new MainMode(1));
+                case SELECT:
+			gm.ChangeMode(new SelectState());
                     break;
-//                case END:
-//                    gm.ChangeMode(new ExitState());
-//                    break;
+                case END:
+                    gm.ChangeMode(new ExitState());
+                    break;
             }
         }
     }
     
-    @Override
     public void Show(Graphics2D g2) {
-        g2.setFont(new Font("Arial", Font.BOLD, 28));
+         g2.setFont(new Font("Arial", Font.BOLD, 28));
+    
+        g2.setPaint(Color.white);
+        g2.drawString("ごぉるまではしろう",TITLEPOSX,TITLEPOSY);
         
-        // タイトル
-        g2.setPaint(Color.yellow);
-        g2.drawString("Templete Shooting",TITLEPOSX,TITLEPOSY);
-        
-        // スタート
-        if(_cursorPos == START)
+        if(_cursorPos == SELECT)
             g2.setPaint(Color.green);
         else
-            g2.setPaint(Color.yellow);
+            g2.setPaint(Color.white);
         
-        g2.drawString("Game Start",MENUPOSX,MENUPOSY);
+        g2.drawString("すたぁと",MENUPOSX,MENUPOSY);
         
-        // おわり
         if(_cursorPos == END)
             g2.setPaint(Color.green);
         else
-            g2.setPaint(Color.yellow);
+            g2.setPaint(Color.white);
         
-        g2.drawString("Quit",MENUPOSX,MENUPOSY + MENUINTVL);
+        g2.drawString("ぉわり",MENUPOSX,MENUPOSY + MENUINTVL);
         
-        // カーソル
-        g2.setPaint(Color.green);
+        g2.setPaint(Color.white);
         switch(_cursorPos)
         {
-            case START:
-                g2.drawString("@",CURSOR,MENUPOSY);
+            case SELECT:
+                g2.drawString("→",CURSOR,MENUPOSY);
                 break;
             case END:
-                g2.drawString("@",CURSOR,MENUPOSY + MENUINTVL);
+                g2.drawString("→",CURSOR,MENUPOSY + MENUINTVL);
                 break;
         }
-        
-        // 操作表示
-        g2.setPaint(Color.yellow);
-        g2.setFont(new Font("MS ゴシック", Font.BOLD, 20));
-        g2.drawString("↑↓キーでカーソル移動", 50,600);
     }
     
     @Override
     public void KeyPressed(KeyEvent arg0) {
-        // TODO Auto-generated method stub
         switch(arg0.getKeyCode())
         {
-            case KeyEvent.VK_Z:
-                KeyZ(true);
+            case KeyEvent.VK_SPACE:
+                KeySpace(true);
                 break;
             case KeyEvent.VK_UP:
                 KeyUp(true);
@@ -129,11 +113,10 @@ public class TitleState implements GameMode{
     
     @Override
     public void KeyReleased(KeyEvent arg0) {
-        // TODO Auto-generated method stub
         switch(arg0.getKeyCode())
         {
-            case KeyEvent.VK_Z:
-                KeyZ(false);
+            case KeyEvent.VK_SPACE:
+                KeySpace(false);
                 break;
             case KeyEvent.VK_UP:
                 KeyUp(false);
@@ -146,8 +129,6 @@ public class TitleState implements GameMode{
     
     @Override
     public void KeyTyped(KeyEvent arg0) {
-        // TODO Auto-generated method stub
-        
     }
     
 }
