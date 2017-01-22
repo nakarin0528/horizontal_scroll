@@ -116,7 +116,16 @@ public class Map {
                     return new Point(x,y);
                 }
                 //針衝突
-                if(map[y][x] == 2){
+                if(map[y][x] == 3){
+                    return new Point(x,y);
+                }
+                if(map[y][x] == 4){
+                    return new Point(x,y);
+                }
+                if(map[y][x] == 5){
+                    return new Point(x,y);
+                }
+                if(map[y][x] == 6){
                     return new Point(x,y);
                 }
             }
