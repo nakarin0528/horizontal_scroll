@@ -106,6 +106,8 @@ public class Player {
         //右に加速
         vx = SPEED;
         
+        //map[][]にアクセスして2だったらgameover？？
+        
         /*x方向の当たり判定*/
         //移動先
         double newX = x + vx;
