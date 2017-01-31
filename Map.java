@@ -10,10 +10,10 @@ public class Map {
     
     //ブロックサイズ
     public static final int TILE_SIZE = 32;
-    //行数列数
+	//行数列数
     public static final int ROW = 15;
     public static final int COL = 100;
-    //幅・高さ
+	//高さ・幅
     public static final int WIDTH = TILE_SIZE*COL;
     public static final int HEIGHT = TILE_SIZE*ROW;
     //重力
@@ -55,7 +55,7 @@ public class Map {
         int lastTileX = firstTileX + pixelsToTiles(MainMode.WIDTH) + 1;
         int firstTileY = pixelsToTiles(-offsetY);
         int lastTileY = firstTileY + pixelsToTiles(MainMode.HEIGHT) + 1;
-        //描画範囲をマップより小さくしとく
+        //描画範囲をマップより小さくしておく
         lastTileX = Math.min(lastTileX, COL);
         lastTileY = Math.min(lastTileY, ROW);
         
@@ -67,7 +67,7 @@ public class Map {
                     case 1:
                         g2.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, null);
                         break;
-                    case 2: // ブロック
+                    case 2: //ブロック
                         g2.fillRect(tilesToPixels(j) + offsetX,
                                    tilesToPixels(i) + offsetY,
                                    TILE_SIZE, TILE_SIZE);
@@ -107,14 +107,38 @@ public class Map {
         //衝突判定
         for (int x = fromTileX; x<=toTileX; x++){
             for(int y = fromTileY; y<=toTileY;y++){
-                //マップ外は衝突
+                
                 if(y<0 || x>=COL){
                     return new Point(x,y);
                 }
-                //ブロック衝突
+                
                 if(map[y][x] == 1){
                     return new Point(x,y);
                 }
+            }
+        }
+        return null;
+    }
+    
+       public Point getNeedleCollision(Player player, double newX,double newY){
+        
+        newX = Math.ceil(newX);
+        newY = Math.ceil(newY);
+        
+        double fromX = Math.min(player.getX(), newX);
+        double fromY = Math.min(player.getY(), newY);
+        double toX = Math.max(player.getX(), newX);
+        double toY = Math.max(player.getY(), newY);
+        
+        int fromTileX = pixelsToTiles(fromX);
+        int fromTileY = pixelsToTiles(fromY);
+        int toTileX = pixelsToTiles(toX + Player.WIDTH - 1);
+        int toTileY = pixelsToTiles(toY + Player.HEIGHT - 1);
+        
+        
+        for (int x = fromTileX; x<=toTileX; x++){
+            for(int y = fromTileY; y<=toTileY;y++){
+               
                 //針衝突
                 if(map[y][x] == 3){
                     return new Point(x,y);
@@ -133,6 +157,8 @@ public class Map {
         return null;
     }
     
+    
+    
     private void loadImage(){
         ImageIcon icon1 = new ImageIcon(getClass().getResource("image/block.gif"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("image/hari_up.png"));
@@ -146,12 +172,12 @@ public class Map {
         hari_right = icon5.getImage();
     }
     
-    //ピクセル単位をタイル単位へ変更
+    //ピクセル単位をタイル単位へ変換
     public static int pixelsToTiles(double pixels) {
         return (int)Math.floor(pixels/TILE_SIZE);
     }
     
-    //タイル単位をピクセル単位へ変更
+	//タイル単位をピクセル単位に変換
     public static int tilesToPixels(int tiles){
         return tiles*TILE_SIZE;
     }
