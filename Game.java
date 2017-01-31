@@ -76,7 +76,7 @@ public class Game extends JPanel implements Runnable, KeyListener{
     
     public void paintComponent(Graphics g){
         g.setColor(Color.black);
-        g.clearRect(0, 0, 480, 640);
+        g.clearRect(0, 0, 640, 500);
         g.drawImage(buffer, 0, 0, this);
     }
     
