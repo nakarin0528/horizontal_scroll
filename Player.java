@@ -99,7 +99,7 @@ public class Player {
     }
     
     
-   //プレイヤー状態更新
+    //プレイヤー状態更新
     public void move() {
         //重力がかかる
         vy += Map.GRAVITY;
@@ -107,9 +107,9 @@ public class Player {
         vx = SPEED;
         
         //x方向の当たり判定
-    	//移動先
+        //移動先
         double newX = x + vx;
-     
+        
         //移動先のタイルの有無
         Point tile = map.getTileCollision(this, newX, y);
         if (tile==null) {   //タイルなし
@@ -120,20 +120,20 @@ public class Player {
             }
             vx = 0;
         }
-
+        
         
         //y方向の当たり判定
-    	//移動先
+        //移動先
         double newY=y+vy;
-       //移動先のタイルの有無
+        //移動先のタイルの有無
         tile = map.getTileCollision(this, x, newY);
         if (tile == null){  //下に移動中の時、下のブロックと衝突
             y = newY;
             onGround = false;
             onCeiling = false;
             
-        } else {    
-            if(vy>0) {  
+        } else {
+            if(vy>0) {
                 y = Map.tilesToPixels(tile.y) - HEIGHT;
                 vy = 0;
                 onGround = true;
@@ -143,28 +143,25 @@ public class Player {
                 onCeiling = true;
             }
         }
-    	
-    	
+        
+        
         //x方向の当たり判定
-    	//移動先の針の有無
-       Point needle = map.getNeedleCollision(this, newX, y);
-    	if (needle==null) {   //針なし
+        //移動先の針の有無
+        Point needle = map.getNeedleCollision(this, newX, y);
+        if (needle==null) {   //針なし
             hitCheck_x = false;
         } else {   //針あり
-            
-            vx = 0;
             hitCheck_x = true;
         }
         //y方向の当たり判定
-    	//移動先のタイルの有無
-    	needle = map.getNeedleCollision(this, x, newY);
+        //移動先のタイルの有無
+        needle = map.getNeedleCollision(this, x, newY);
         if (needle == null){  //タイルなし
             hitCheck_y = false;
             
         } else {    //タイルあり
-                vy = 0;
             hitCheck_y = true;
-        }   
+        }
         
         if (spacePressed) {
             vy = -JUMP_SPEED;
