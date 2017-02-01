@@ -12,7 +12,7 @@ public class ExitState implements GameMode{
     public void Show(Graphics2D g2) {
         g2.setFont(new Font("ＭＳ ゴシック", Font.BOLD, 30));
         g2.setPaint(Color.white);
-        g2.drawString("げぇむおぉばぁ",200, 200);
+        g2.drawString("ゲーム終了です.ウィンドウを閉じてください",10, 200);
     }
     
     @Override

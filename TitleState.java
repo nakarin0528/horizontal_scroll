@@ -67,21 +67,21 @@ public class TitleState implements GameMode{
          g2.setFont(new Font("Arial", Font.BOLD, 28));
     
         g2.setPaint(Color.white);
-        g2.drawString("ごぉるまではしろう",TITLEPOSX,TITLEPOSY);
+        g2.drawString("横スクロールゲーム",TITLEPOSX,TITLEPOSY);
         
         if(_cursorPos == SELECT)
             g2.setPaint(Color.green);
         else
             g2.setPaint(Color.white);
         
-        g2.drawString("すたぁと",MENUPOSX,MENUPOSY);
+        g2.drawString("スタート",MENUPOSX,MENUPOSY);
         
         if(_cursorPos == END)
             g2.setPaint(Color.green);
         else
             g2.setPaint(Color.white);
         
-        g2.drawString("ぉわり",MENUPOSX,MENUPOSY + MENUINTVL);
+        g2.drawString("おわり",MENUPOSX,MENUPOSY + MENUINTVL);
         
         g2.setPaint(Color.white);
         switch(_cursorPos)
