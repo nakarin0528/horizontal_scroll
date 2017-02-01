@@ -12,7 +12,7 @@ public class Player {
     public static final int WIDTH = 32;
     public static final int HEIGHT = 32;
     //スピード
-    private static final int SPEED = 3;
+    private static final int SPEED = 4;
     //ジャンプ力
     private static final int JUMP_SPEED = 14;
     

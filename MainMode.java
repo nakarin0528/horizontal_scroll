@@ -14,7 +14,7 @@ public class MainMode implements GameMode{
     private Map MAp;
     //プレイヤー
     private Player player;
-    private Enemy enemy[] = new Enemy[5];
+    private Enemy enemy[] = new Enemy[7];
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
     
@@ -64,7 +64,7 @@ public class MainMode implements GameMode{
         MAp.show(g2, offsetX, offsetY);
         //プレイヤー
         player.show(g2, offsetX, offsetY);
-        for(int i = 0;i<5;i++){
+        for(int i = 0;i<7;i++){
             enemy[i].show(g2,offsetX, offsetY);
         }
     }
@@ -84,7 +84,7 @@ public class MainMode implements GameMode{
     
     public void run(GameManager gm){
         player.move();
-        for(int i = 0;i<5;i++){
+        for(int i = 0;i<7;i++){
             enemy[i].move();
         }
         

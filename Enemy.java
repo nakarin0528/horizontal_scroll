@@ -18,7 +18,7 @@ public class Enemy implements ActionListener{
     //スピード
     private static final int SPEED = 3;
     //ジャンプ力
-    private static final int JUMP_SPEED = 14;
+    private static final int JUMP_SPEED = 15;
     //位置
     private double x, y;
     //速度
