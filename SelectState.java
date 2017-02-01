@@ -24,7 +24,6 @@ public class SelectState implements GameMode{
     public void KeyUp(boolean on){m_bKeyUp = on;}
     private boolean m_bKeyDown;
     public void KeyDown(boolean on){m_bKeyDown = on;}
-    private boolean m_bKeySpace;
     public void KeySpace(boolean on){m_bKeySpace = on;}
     
     
