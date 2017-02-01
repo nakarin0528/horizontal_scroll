@@ -23,6 +23,10 @@ public class Enemy {
     private boolean onGround;
     //アニメーション用カウンタ
     private int count;
+    //キャラの向き
+    private static final int RIGHT = 1;
+    private static final int LEFT = 0;
+    private int dir = LEFT;
     //プレイヤー画像
     private Image image;
     //マップへの参照
@@ -36,7 +40,7 @@ public class Enemy {
         this.x = x; this.y = y;
         this.map = map;
         this.player = player;
-        vx = -2; vy = 0;
+        vx = -SPEED; vy = 0;
         onGround = false; onCeiling = false;
         count = 0;
         loadImage();
@@ -62,9 +66,17 @@ public class Enemy {
             if (vx > 0) {
                 x = Map.tilesToPixels(tile.x) - WIDTH;  //位置調整
             }else if(vx < 0){
-                x = Map.tilesToPixels(tile.x) +WIDTH;
+                x = Map.tilesToPixels(tile.x) + WIDTH;
             }
-            vx = vx*(-1);
+            vx = 0;
+            vx = -vx;
+            if (dir == LEFT){
+                vx = SPEED;
+                dir = RIGHT;
+            }else{
+                dir = LEFT;
+                vx = -SPEED;
+            }
         }
         
         /*y方向の当たり判定*/
@@ -91,7 +103,7 @@ public class Enemy {
     }
 
     private void loadImage() {  
-        ImageIcon icon = new ImageIcon(getClass().getResource("image/players.png"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("image/zombi.png"));
         image = icon.getImage();
     }
     //プレイヤーを描画
@@ -99,8 +111,8 @@ public class Enemy {
         g2.drawImage(image,
                      (int)x + offsetX, (int)y + offsetY,
                      (int)x + offsetX + WIDTH, (int)y + offsetY + HEIGHT,
-                     count * WIDTH, 0,
-                     count * WIDTH + WIDTH, HEIGHT,
+                     count * WIDTH, dir * HEIGHT,
+                     count * WIDTH + WIDTH, dir * HEIGHT + HEIGHT,
                      null);
     }
      public boolean HitWithPlayer(){
