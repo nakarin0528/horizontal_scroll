@@ -3,10 +3,14 @@ import java.awt.Point;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 import javax.swing.ImageIcon;
 
-public class Enemy {
+public class Enemy implements ActionListener{
+    
+    private Timer timer;
+    private boolean isJump;
     
     //キャラの大きさ
     public static final int WIDTH = 32;
@@ -45,13 +49,21 @@ public class Enemy {
         count = 0;
         loadImage();
         AnimationThread thread = new AnimationThread();
+        timer = new Timer(1000, this);
+        timer.start();
         thread.start();
     }
     public void stop() {
-        vx = 0;
+        vy = 0;
     }
+    
+    public void actionPerformed(ActionEvent e){
+        isJump = true;
+    }
+
     //プレイヤー状態更新
     public void move() {
+        
         //重力がかかる
         vy += Map.GRAVITY;
         
@@ -99,6 +111,11 @@ public class Enemy {
                 vy = 0;
                 onCeiling = true;
             }
+        }
+        
+        if (isJump) {
+            vy = -JUMP_SPEED;
+            isJump = false;
         }
     }
 

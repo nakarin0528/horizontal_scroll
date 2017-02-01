@@ -1,8 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import java.awt.*;
+
 
 
 
@@ -85,12 +87,12 @@ public class MainMode implements GameMode{
         for(int i = 0;i<5;i++){
             enemy[i].move();
         }
+        
         if(HitWithPlayer()){gm.ChangeMode(new ExitState());}
         if(player.HitCheck()){
            gm.ChangeMode(new ExitState());
        }
     }
-    
     
     public void KeyPressed(KeyEvent arg0){
         player.KeyPressedAnalyze(arg0);
