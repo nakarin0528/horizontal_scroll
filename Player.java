@@ -29,7 +29,7 @@ public class Player {
     private double vx;
     private double vy;
     
-    //着地しているかどうか
+    //着地しているか
     private boolean onGround;
     
     //使用するキャラ
@@ -74,8 +74,9 @@ public class Player {
     }
     
     //Select用
+    
     public Player(double x,double y, int p_num){
-        
+    
         p_color = p_num;
         
         this.x = x;
@@ -106,34 +107,31 @@ public class Player {
         //右に加速
         vx = SPEED;
         
-        //x方向の当たり判定
+        /*x方向の当たり判定*/
         //移動先
         double newX = x + vx;
-        
         //移動先のタイルの有無
         Point tile = map.getTileCollision(this, newX, y);
         if (tile==null) {   //タイルなし
             x = newX;
         } else {    //タイルあり
             if (vx > 0) {
-                x = Map.tilesToPixels(tile.x) - WIDTH;  //位置調節
+                x = Map.tilesToPixels(tile.x) - WIDTH;  //位置調整
             }
             vx = 0;
         }
         
-        
-        //y方向の当たり判定
+        /*y方向の当たり判定*/
         //移動先
-        double newY=y+vy;
+        double newY = y + vy;
         //移動先のタイルの有無
         tile = map.getTileCollision(this, x, newY);
-        if (tile == null){  //下に移動中の時、下のブロックと衝突
+        if (tile == null){  //タイルなし
             y = newY;
             onGround = false;
             onCeiling = false;
-            
-        } else {
-            if(vy>0) {
+        } else {    //タイルあり
+            if(vy>0) {  //下に移動中の時，下のブロックと衝突
                 y = Map.tilesToPixels(tile.y) - HEIGHT;
                 vy = 0;
                 onGround = true;
@@ -144,22 +142,24 @@ public class Player {
             }
         }
         
-        
         //x方向の当たり判定
-        //移動先の針の有無
-        Point needle = map.getNeedleCollision(this, newX, y);
-        if (needle==null) {   //針なし
+    	//移動先の針の有無
+       Point needle = map.getNeedleCollision(this, newX, y);
+    	if (needle==null) {   //針なし
             hitCheck_x = false;
         } else {   //針あり
+            
+            vx = 0;
             hitCheck_x = true;
         }
         //y方向の当たり判定
-        //移動先のタイルの有無
-        needle = map.getNeedleCollision(this, x, newY);
+    	//移動先のタイルの有無
+    	needle = map.getNeedleCollision(this, x, newY);
         if (needle == null){  //タイルなし
             hitCheck_y = false;
             
         } else {    //タイルあり
+                vy = 0;
             hitCheck_y = true;
         }
         
