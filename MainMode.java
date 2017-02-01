@@ -4,11 +4,12 @@ import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.applet.*;
 
 
 
 
-public class MainMode implements GameMode{
+public class MainMode extends Applet implements GameMode{
     
     //マップ
     private Map MAp;
@@ -83,6 +84,7 @@ public class MainMode implements GameMode{
     }
     
     public void run(GameManager gm){
+        
         player.move();
         for(int i = 0;i<7;i++){
             enemy[i].move();
