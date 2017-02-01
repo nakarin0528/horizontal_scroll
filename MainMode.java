@@ -67,11 +67,25 @@ public class MainMode implements GameMode{
         }
     }
     
+    public boolean HitWithPlayer(){
+        boolean hitornot = false;
+        for(int en = 0;en<5;en++){
+        double px = player.getX()+Player.WIDTH/2;
+        double py = player.getY()+Player.HEIGHT/2;
+        double ex = enemy[en].getX()+Enemy.WIDTH/2;
+        double ey = enemy[en].getY()+Enemy.HEIGHT/2;
+        double hit = Math.sqrt(Math.pow(ex-px,2)+Math.pow(ey-py,2));
+        if(hit <= Player.WIDTH){hitornot = true;}
+        }
+        return hitornot;
+    }
+    
     public void run(GameManager gm){
         player.move();
         for(int i = 0;i<5;i++){
             enemy[i].move();
         }
+        if(HitWithPlayer()){gm.ChangeMode(new ExitState());}
         if(player.HitCheck()){
            gm.ChangeMode(new ExitState());
        }
