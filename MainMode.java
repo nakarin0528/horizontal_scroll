@@ -4,12 +4,11 @@ import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import java.awt.*;
-import java.applet.*;
 
 
 
 
-public class MainMode extends Applet implements GameMode{
+public class MainMode implements GameMode{
     
     //マップ
     private Map MAp;
