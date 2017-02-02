@@ -71,7 +71,7 @@ public class MainMode implements GameMode{
     
     public boolean HitWithPlayer(){
         boolean hitornot = false;
-        for(int en = 0;en<5;en++){
+        for(int en = 0;en<7;en++){
         double px = player.getX()+Player.WIDTH/2;
         double py = player.getY()+Player.HEIGHT/2;
         double ex = enemy[en].getX()+Enemy.WIDTH/2;
