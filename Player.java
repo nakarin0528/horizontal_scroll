@@ -14,7 +14,7 @@ public class Player {
     //スピード
     private static final int SPEED = 4;
     //ジャンプ力
-    private static final int JUMP_SPEED = 14;
+    private static final int JUMP_SPEED = 16;
 
     //キャラ種類
     private static final int Red = 0;

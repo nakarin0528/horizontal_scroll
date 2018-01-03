@@ -30,7 +30,7 @@ public class MainMode implements GameMode{
         //マップ生成
         MAp = new Map();
         //キャラクター生成
-        player = new Player(100, 380, MAp, p_num);
+        player = new Player(80, 380, MAp, p_num);
     }
 
     public void Show(Graphics2D g2){
