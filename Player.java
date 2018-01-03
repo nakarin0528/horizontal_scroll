@@ -224,17 +224,15 @@ public class Player {
 
     public void loadGene(String gene) {
       switch (gene) {
-        case "00":
-          break;
-        case "01":
-          // 右
-          DPressed = true;
-          break;
-        case "10":
+        case "0":
           // 左
           APressed = true;
           break;
-        case "11":
+        case "1":
+          // 右
+          DPressed = true;
+          break;
+        case "2":
           // ジャンプ
           if (onGround) {
             spacePressed = true;

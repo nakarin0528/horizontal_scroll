@@ -85,7 +85,7 @@ public class MainMode implements GameMode{
 
       // 遺伝子を読ませていって、読ませ終わったら、ストップ
       // timerをつかって0.2秒ごとに遺伝子情報を読み込むようにする。
-      player1.loadGene("01");
+      player1.loadGene("1");
 
       player1.move();
       player2.move();
