@@ -14,7 +14,7 @@ public class MainMode implements GameMode{
     private Map MAp;
     //プレイヤー
     private Player player;
-    // private Enemy enemy[] = new Enemy[7];
+
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
 
@@ -30,7 +30,7 @@ public class MainMode implements GameMode{
         //マップ生成
         MAp = new Map();
         //キャラクター生成
-        player = new Player(192, 32, MAp, p_num);
+        player = new Player(100, 380, MAp, p_num);
     }
 
     public void Show(Graphics2D g2){
