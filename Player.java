@@ -221,7 +221,7 @@ public class Player {
     public void KeyPressedAnalyze(KeyEvent e){
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_SPACE){
+        if (key == KeyEvent.VK_SPACE && this.onGround){
             spacePressed = true;
         }
         if (key == KeyEvent.VK_D){
