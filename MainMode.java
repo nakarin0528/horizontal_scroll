@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import java.awt.*;
 
-
+// ゴールの座標（410, 90）
 
 
 public class MainMode implements GameMode{
@@ -86,6 +86,8 @@ public class MainMode implements GameMode{
       //  遺伝子を読ませていって、読ませ終わったら、ストップ
       player1.loadGene("01");
 
+      int dis1 = getDistance(player2.returnX(), player2.returnY(), 410, 90);
+      System.out.printf("distance: %d\n",dis1);
       player1.move();
       player2.move();
       player3.move();
@@ -96,9 +98,9 @@ public class MainMode implements GameMode{
       player8.move();
       player9.move();
       player10.move();
-      if(player1.HitCheck()){
-         gm.ChangeMode(new MainMode(0));
-       }
+      // if(player1.HitCheck()){
+      //    gm.ChangeMode(new MainMode(0));
+      //  }
     }
 
     public void KeyPressed(KeyEvent arg0){
@@ -138,5 +140,9 @@ public class MainMode implements GameMode{
         player10.KeyTypedAnalyze(arg0);
     }
 
+    public int getDistance(double x, double y, double x2, double y2) {
+      double distance = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y));
+      return (int) distance;
+    }
 
 }
