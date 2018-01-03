@@ -12,7 +12,7 @@ public class Player {
     public static final int WIDTH = 32;
     public static final int HEIGHT = 32;
     //スピード
-    private static final int SPEED = 4;
+    private static final int SPEED = 8;
     //ジャンプ力
     private static final int JUMP_SPEED = 16;
 
@@ -91,7 +91,11 @@ public class Player {
         if (vx < 0){
           vx += 1;
         }
-
+        // ジャンプがある時は先に飛ばせて、乗移りやすくする
+        if (spacePressed) {
+            vy = -JUMP_SPEED;
+            spacePressed = false;
+        }
         /*x方向の当たり判定*/
         //移動先
         if  (DPressed) {
@@ -154,12 +158,12 @@ public class Player {
             hitCheck_y = true;
         }
 
-        if (spacePressed) {
-            vy = -JUMP_SPEED;
-            spacePressed = false;
-        }
-    }
+        spacePressed = false;
+        DPressed = false;
+        APressed = false;
 
+    }
+    // ゴールチェック
     public boolean HitCheck() {
         boolean rtn = false;
         rtn = hitCheck_x || hitCheck_y;
@@ -216,6 +220,27 @@ public class Player {
 
     public double getY() {
         return y;
+    }
+
+    public void loadGene(String gene) {
+      switch (gene) {
+        case "00":
+          break;
+        case "01":
+          // 右
+          DPressed = true;
+          break;
+        case "10":
+          // 左
+          APressed = true;
+          break;
+        case "11":
+          // ジャンプ
+          if (onGround) {
+            spacePressed = true;
+          }
+          break;
+      }
     }
 
     public void KeyPressedAnalyze(KeyEvent e){
