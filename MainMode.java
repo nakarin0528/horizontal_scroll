@@ -35,19 +35,19 @@ public class MainMode implements GameMode{
 
     public void Show(Graphics2D g2){
         //offsetを計算，マップ端ではスクロールしない
-        int offsetX = MainMode.WIDTH/2 - (int)player.getX();
-        offsetX = Math.min(offsetX, 0);
-        offsetX = Math.max(offsetX, MainMode.WIDTH - Map.WIDTH);
-        int offsetY = MainMode.HEIGHT/2 - (int)player.getY();
-        offsetY = Math.min(offsetY, 0);
-        offsetY = Math.max(offsetY, MainMode.HEIGHT - Map.HEIGHT);
+        // int offsetX = MainMode.WIDTH/2 - (int)player.getX();
+        // offsetX = Math.min(offsetX, 0);
+        // offsetX = Math.max(offsetX, MainMode.WIDTH - Map.WIDTH);
+        // int offsetY = MainMode.HEIGHT/2 - (int)player.getY();
+        // offsetY = Math.min(offsetY, 0);
+        // offsetY = Math.max(offsetY, MainMode.HEIGHT - Map.HEIGHT);
         //背景
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
         //マップ
-        MAp.show(g2, offsetX, offsetY);
+        MAp.show(g2, 0, 0);
         //プレイヤー
-        player.show(g2, offsetX, offsetY);
+        player.show(g2, 0, 0);
     }
 
     public void run(GameManager gm){
