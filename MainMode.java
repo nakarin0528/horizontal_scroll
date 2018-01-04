@@ -17,7 +17,7 @@ public class MainMode implements GameMode{
     //世代
     private int gen=1;
     //プレイヤー
-    private Player[] players = new Player[10];
+    private Player[] players = new Player[ga.POP_SIZE];
     //遺伝子
     private String[] genes;
 
@@ -38,26 +38,29 @@ public class MainMode implements GameMode{
         ga = new GA();
         ga.initialize();
 
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<ga.POP_SIZE; i++) {
           players[i] = new Player(90, 380, MAp, 0);
         }
     }
 
     public void initGene() {
       //キャラクター生成
-      for (int i=0; i<10; i++) {
-        players[i] = new Player(90, 380, MAp, 0);
+      for (int i=0; i<ga.POP_SIZE; i++) {
+        players[i] = new Player(320, 380, MAp, 0);
       }
 
       int[][] newGenes = ga.returnGenes();
-      this.genes = new String[10];
+      this.genes = new String[ga.POP_SIZE];
 
       for (int i=0; i<ga.POP_SIZE; i++) {
         for (int j=0; j<ga.LEN_CHROM; j++) {
           // 文字列に変換して代入
           genes[i] = genes[i] + newGenes[i][j];
         }
+        // 最初なんかnull
+        System.out.printf("[%d]: ", i);
         System.out.println(genes[i]);
+
       }
       for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].setGene(genes[i]);
@@ -131,8 +134,8 @@ public class MainMode implements GameMode{
 
     // プレーヤーのスコア
     public int playerScore(Player player) {
-      // ゴールまでの距離
-      int dis = getDistance(player.returnX(), player.returnY(), 410, 90);
+      // ゴール(350,70)までの距離
+      int dis = getDistance(player.returnX(), player.returnY(), 350, 70);
       // 到達した高さ　- ゴールまでの距離。
       // 得点が高ければ高いほど良い。
       int score = (-1*(player.returnY() - 380)) - dis - player.returnJumpCount();
