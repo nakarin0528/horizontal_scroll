@@ -14,26 +14,21 @@ public class MainMode implements GameMode{
     private Map MAp;
     //GA
     private GA ga;
+    //世代
+    private int gen=1;
     //プレイヤー
     private Player[] players = new Player[10];
-    private Player player1;
-    private Player player2;
-    private Player player3;
-    private Player player4;
-    private Player player5;
-    private Player player6;
-    private Player player7;
-    private Player player8;
-    private Player player9;
-    private Player player10;
-
-    private String[] genes = new String[10];
+    //遺伝子
+    private String[] genes;
 
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
 
     public MainMode(int p_num){
         init(p_num);
+    }
+    public void init() {
+      // TODO Auto-generated method stub
     }
 
     public void init(int p_num){
@@ -42,74 +37,88 @@ public class MainMode implements GameMode{
         //ga
         ga = new GA();
         ga.initialize();
-        //キャラクター生成
+
         for (int i=0; i<10; i++) {
-          players[i] = new Player(90, 380, MAp, p_num);
+          players[i] = new Player(90, 380, MAp, 0);
         }
-        this.init();
     }
 
-    public void init() {
-        // TODO Auto-generated method stub
-        int[][] newGenes = ga.returnGenes();
-        for (int i=0; i<ga.POP_SIZE; i++) {
-          for (int j=0; j<ga.LEN_CHROM; j++) {
-            // 文字列に変換して代入
-            genes[i] = genes[i] + newGenes[i][j];
-          }
-          System.out.println(genes[i]);
+    public void initGene() {
+      //キャラクター生成
+      for (int i=0; i<10; i++) {
+        players[i] = new Player(90, 380, MAp, 0);
+      }
+
+      int[][] newGenes = ga.returnGenes();
+      this.genes = new String[10];
+
+      for (int i=0; i<ga.POP_SIZE; i++) {
+        for (int j=0; j<ga.LEN_CHROM; j++) {
+          // 文字列に変換して代入
+          genes[i] = genes[i] + newGenes[i][j];
         }
-        for (int i=0; i<10; i++) {
-          players[i].setGene(genes[i]);
-        }
+        System.out.println(genes[i]);
+      }
+      for (int i=0; i<ga.POP_SIZE; i++) {
+        players[i].setGene(genes[i]);
+      }
     }
 
     public void Show(Graphics2D g2){
-        //offsetを計算，マップ端ではスクロールしない
-        // int offsetX = MainMode.WIDTH/2 - (int)player.getX();
-        // offsetX = Math.min(offsetX, 0);
-        // offsetX = Math.max(offsetX, MainMode.WIDTH - Map.WIDTH);
-        // int offsetY = MainMode.HEIGHT/2 - (int)player.getY();
-        // offsetY = Math.min(offsetY, 0);
-        // offsetY = Math.max(offsetY, MainMode.HEIGHT - Map.HEIGHT);
         //背景
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
         //マップ
         MAp.show(g2, 0, 0);
         //プレイヤー
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<ga.POP_SIZE; i++) {
           players[i].show(g2, 0, 0);
         }
     }
 
     public void run(GameManager gm){
-
-      // 遺伝子を読ませていって、読ませ終わったら、ストップ
-      // timerをつかって0.2秒ごとに遺伝子情報を読み込むようにする。
-      // player1.loadGene("2");
+      // 遺伝子消化されたら、データを渡して、次の遺伝子をもらう。
+      // 遺伝子の長さは一緒なのでどれか1つみればよい。
+      if (players[0].returnIsFinished()) {
+        int[] scores = new int[ga.POP_SIZE];
+        for (int i=0; i<ga.POP_SIZE; i++) {
+          scores[i] = this.playerScore(players[i]);
+        }
+        ga.setScores(scores, gen);
+        gen++;
+        // gm.ChangeMode(new MainMode(0));
+        for (int i=0; i<ga.POP_SIZE; i++) {
+          players[i].changeToFalse_isFinished();
+        }
+      }
+      // 遺伝子が生成されたら、プレーヤーたちリセット
+      if (ga.returnIsGenerated()) {
+        ga.changeToFalse_isGenerated();
+        this.initGene();
+      }
 
       // System.out.printf("player1のスコア: %d\n", playerScore(players[0]));
-      for (int i=0; i<10; i++) {
+      for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].move();
       }
+
       // if(player1.HitCheck()){
       //    gm.ChangeMode(new MainMode(0));
       //  }
     }
 
     public void KeyPressed(KeyEvent arg0){
-      for (int i=0; i<10; i++) {
+      for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].KeyPressedAnalyze(arg0);
       }
     }
     public void KeyReleased(KeyEvent arg0){
-      for (int i=0; i<10; i++) {
+      for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].KeyReleasedAnalyze(arg0);
       }
     }
     public void KeyTyped(KeyEvent arg0){
-      for (int i=0; i<10; i++) {
+      for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].KeyTypedAnalyze(arg0);
       }
     }

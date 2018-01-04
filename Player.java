@@ -64,6 +64,9 @@ public class Player implements ActionListener{
     private int index = 0;
     private int jumpCount = 0;
 
+    // 遺伝子読み込み終えたかどうか
+    private boolean isFinished = false;
+
     public Player(double x, double y, Map map, int p_num) {
 
         p_color = p_num;
@@ -97,7 +100,8 @@ public class Player implements ActionListener{
         this.loadGene(gene.charAt(index));
         index++;
       } else {
-        // index = 0;
+        // 遺伝子消化した
+        this.isFinished = true;
       }
     }
 
@@ -276,9 +280,19 @@ public class Player implements ActionListener{
       return this.jumpCount;
     }
 
-    // 遺伝子をセット
+    // 遺伝子をセット&初期化
     public void setGene(String gene) {
+      this.index = 0;
+      this.isFinished = false;
       this.gene = gene;
+    }
+
+    public boolean returnIsFinished() {
+      return this.isFinished;
+    }
+
+    public void changeToFalse_isFinished() {
+      this.isFinished = false;
     }
 
     // 以下キーボード操作
