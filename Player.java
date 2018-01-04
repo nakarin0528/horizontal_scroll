@@ -18,7 +18,7 @@ public class Player implements ActionListener{
     //スピード
     private static final int SPEED = 8;
     //ジャンプ力
-    private static final int JUMP_SPEED = 18;
+    private static final int JUMP_SPEED = 19;
 
     //キャラ種類
     private static final int Red = 0;
