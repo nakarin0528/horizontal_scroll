@@ -28,6 +28,8 @@ public class Player implements ActionListener{
     //位置
     private double x;
     private double y;
+    private double defaultX;
+    private double defaultY;
 
     //速度
     private double vx;
@@ -143,7 +145,6 @@ public class Player implements ActionListener{
 
         /*y方向の当たり判定*/
         //移動先
-
         double newY = y + vy;
         //移動先のタイルの有無
         tile = map.getTileCollision(this, x, newY);
@@ -156,6 +157,9 @@ public class Player implements ActionListener{
                 y = Map.tilesToPixels(tile.y) - HEIGHT;
                 vy = 0;
                 onGround = true;
+                // 地面にいる時の位置
+                this.defaultX = this.x;
+                this.defaultY = this.y;
             } else if (vy<0) {
                 y = Map.tilesToPixels(tile.y + 1);
                 vy = 0;
@@ -165,7 +169,7 @@ public class Player implements ActionListener{
 
         //x方向の当たり判定
     	//移動先の針の有無
-       Point needle = map.getNeedleCollision(this, newX, y);
+      Point needle = map.getNeedleCollision(this, newX, y);
     	if (needle==null) {   //針なし
             hitCheck_x = false;
         } else {   //針あり
@@ -175,17 +179,17 @@ public class Player implements ActionListener{
         //y方向の当たり判定
     	//移動先のタイルの有無
     	needle = map.getNeedleCollision(this, x, newY);
-        if (needle == null){  //タイルなし
-            hitCheck_y = false;
+      if (needle == null){  //タイルなし
+          hitCheck_y = false;
 
-        } else {    //タイルあり
-                vy = 0;
-            hitCheck_y = true;
-        }
+      } else {    //タイルあり
+              vy = 0;
+          hitCheck_y = true;
+      }
 
-        spacePressed = false;
-        DPressed = false;
-        APressed = false;
+      spacePressed = false;
+      DPressed = false;
+      APressed = false;
 
     }
     // ゴールチェック
@@ -269,11 +273,11 @@ public class Player implements ActionListener{
     }
     // x座標を返す
     public int returnX() {
-      return (int)this.x;
+      return (int)this.defaultX;
     }
     // y座標を返す
     public int returnY() {
-      return (int)this.y;
+      return (int)this.defaultY;
     }
 
     public int returnJumpCount() {
