@@ -46,8 +46,8 @@ public class MainMode implements GameMode{
 
     public void init() {
         // TODO Auto-generated method stub
-        genes[0] = "21221112121211020202";
-        genes[1] = "2122111212010210201";
+        genes[0] = "2112111211111211020000";//右からゴールする遺伝子１
+        genes[1] = "21121121212120021111";
         genes[2] = "2122111212021020210";
         genes[3] = "2122111212201211200";
         genes[4] = "2122111212020102121";
