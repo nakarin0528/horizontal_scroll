@@ -3,13 +3,14 @@ import java.awt.Point;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
-// import javax.swing.*;
+import javax.swing.*;
+
 
 import javax.swing.ImageIcon;
 
-public class Player {
+public class Player implements ActionListener{
 
-    // private Timer timer;
+    private Timer timer;
 
     //キャラの大きさ
     public static final int WIDTH = 32;
@@ -17,7 +18,7 @@ public class Player {
     //スピード
     private static final int SPEED = 8;
     //ジャンプ力
-    private static final int JUMP_SPEED = 16;
+    private static final int JUMP_SPEED = 18;
 
     //キャラ種類
     private static final int Red = 0;
@@ -59,7 +60,9 @@ public class Player {
     private boolean APressed;
 
     // 遺伝子
-    private String gene = "";
+    private String gene = "211222211";
+    //121111221211121111221211211221211111111111111222222
+    private int index = 0;
 
     public Player(double x, double y, Map map, int p_num) {
 
@@ -76,8 +79,8 @@ public class Player {
 
         loadImage();
         // 0.2秒ごとに動きますか
-        // timer = new Timer(200, this);
-        // timer.start();
+        timer = new Timer(200, this);
+        timer.start();
 
         //アニメーション用
         AnimationThread thread = new AnimationThread();
@@ -87,6 +90,15 @@ public class Player {
     //停止
     public void stop() {
         vx = 0;
+    }
+
+    public void actionPerformed(ActionEvent e){
+      if (index < gene.length()) {
+        this.loadGene(gene.charAt(index));
+        index++;
+      } else {
+        // index = 0;
+      }
     }
 
     //プレイヤー状態更新
@@ -231,17 +243,17 @@ public class Player {
         return y;
     }
 
-    public void loadGene(String gene) {
+    public void loadGene(char gene) {
       switch (gene) {
-        case "0":
+        case '0':
           // 左
           APressed = true;
           break;
-        case "1":
+        case '1':
           // 右
           DPressed = true;
           break;
-        case "2":
+        case '2':
           // ジャンプ
           if (onGround) {
             spacePressed = true;
