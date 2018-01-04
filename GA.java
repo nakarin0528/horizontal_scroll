@@ -19,6 +19,8 @@ public class GA {
   private int max, min, sumfitness;         //適合度のmax,min,sum
   private int n_min;
 
+  private boolean isGenerated = false;
+
 
 
   /*------------------------------------------
@@ -214,6 +216,7 @@ public class GA {
       mutation(child1);
       mutation(child2);
     }
+    this.isGenerated = true;
   }
 
 
@@ -260,33 +263,27 @@ public class GA {
   public void initialize() {
     int i,j;
 
-    // scores[0] = 10;
-    // scores[1] = 15;
-    // scores[2] = 20;
-    // scores[3] = 25;
-    // scores[4] = 30;
-    // scores[5] = 35;
-    // scores[6] = 40;
-    // scores[7] = 45;
-    // scores[8] = 50;
-    // scores[9] = 55;
-
-
     for (i=0; i<POP_SIZE; i++) {
       for (j=0; j<LEN_CHROM; j++) {
         chrom[i][j] = rand()%3;
       }
-      // fitness[i] = ObjFunc(i);
     }
 
+    this.isGenerated = true;
   }
 
 
   /*------------------------------------------
      スコアの設定
    ------------------------------------------*/
-  public void setScores(int[] scores) {
-    this.scores = scores;
+  public void setScores(int[] scores, int gen) {
+    for (int i=0; i<POP_SIZE; i++) {
+      //todo: ojbjFunc経由しなくていいんじゃね
+      this.scores[i] = scores[i];
+      this.fitness[i] = objFunc(i);
+    }
+    // スコアがセットされたら、次世代作りましょう！
+    generation(gen);
   }
 
 
@@ -296,6 +293,18 @@ public class GA {
    public int[][] returnGenes() {
      return this.chrom;
    }
+
+   /*------------------------------------------
+      遺伝子を返す
+    ------------------------------------------*/
+  public boolean returnIsGenerated() {
+    return this.isGenerated;
+  }
+
+  public void changeToFalse_isGenerated() {
+    this.isGenerated = false;
+  }
+
 
   /*------------------------------------------
      メイン関数
