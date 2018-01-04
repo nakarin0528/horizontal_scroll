@@ -61,8 +61,8 @@ public class Player implements ActionListener{
 
     // 遺伝子
     private String gene = "";
-    //121111221211121111221211211221211111111111111222222
     private int index = 0;
+    private int jumpCount = 0;
 
     public Player(double x, double y, Map map, int p_num) {
 
@@ -256,6 +256,8 @@ public class Player implements ActionListener{
         case '2':
           // ジャンプ
           if (onGround) {
+            // jumpした回数を数える
+            this.jumpCount++;
             spacePressed = true;
           }
           break;
@@ -268,6 +270,10 @@ public class Player implements ActionListener{
     // y座標を返す
     public int returnY() {
       return (int)this.y;
+    }
+
+    public int returnJumpCount() {
+      return this.jumpCount;
     }
 
     // 遺伝子をセット

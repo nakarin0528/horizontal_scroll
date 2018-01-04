@@ -25,7 +25,7 @@ public class MainMode implements GameMode{
     private Player player9;
     private Player player10;
 
-    private String gene = "1000";
+    private String[] genes = new String[10];
 
     public static final int WIDTH = 640;
     public static final int HEIGHT = 480;
@@ -46,9 +46,18 @@ public class MainMode implements GameMode{
 
     public void init() {
         // TODO Auto-generated method stub
-
+        genes[0] = "21221112121211020202222222";
+        genes[1] = "2010210212010210201";
+        genes[2] = "2010201201021020210";
+        genes[3] = "1201021021201211200";
+        genes[4] = "2102010021020102121";
+        genes[5] = "1012100201011120210";
+        genes[6] = "2102101101200200210";
+        genes[7] = "2200202012010210020";
+        genes[8] = "2122111212121102020";
+        genes[9] = "2020120102102021020";
         for (int i=0; i<10; i++) {
-          players[i].setGene("2122111212121102020");
+          players[i].setGene(genes[i]);
         }
     }
 
@@ -102,16 +111,19 @@ public class MainMode implements GameMode{
       }
     }
 
+    // ゴールまでの距離
     public int getDistance(double x, double y, double x2, double y2) {
       double distance = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y));
       return (int) distance;
     }
 
+    // プレーヤーのスコア
     public int playerScore(Player player) {
       // ゴールまでの距離
-      int dis1 = getDistance(player.returnX(), player.returnY(), 410, 90);
-      // ゴールまでの距離 - 高さでスコアが低ければ低いほど良い。
-      int score = dis1 + (player.returnY() - 380);
+      int dis = getDistance(player.returnX(), player.returnY(), 410, 90);
+      // 到達した高さ　- ゴールまでの距離。
+      // 得点が高ければ高いほど良い。
+      int score = (-1*(player.returnY() - 380)) - dis - player.returnJumpCount();
       return score;
     }
 
