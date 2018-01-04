@@ -60,7 +60,7 @@ public class Player implements ActionListener{
     private boolean APressed;
 
     // 遺伝子
-    private String gene = "211222211";
+    private String gene = "";
     //121111221211121111221211211221211111111111111222222
     private int index = 0;
 
