@@ -251,7 +251,7 @@ void Initialize() {
 
   for (i=0; i<POP_SIZE; i++) {
     for (j=0; j<LEN_CHROM; j++) {
-      chrom[i][j] = Rand()%2;
+      chrom[i][j] = Rand()%3;
     }
     fitness[i] = ObjFunc(i);
   }
