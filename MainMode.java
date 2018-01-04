@@ -84,6 +84,7 @@ public class MainMode implements GameMode{
         for (int i=0; i<ga.POP_SIZE; i++) {
           scores[i] = this.playerScore(players[i]);
           System.out.printf("[%d]: ", i);
+          // 最初なんかnull
           System.out.printf(genes[i]);
           System.out.printf(" -> %d \n", scores[i]);
         }
@@ -139,7 +140,7 @@ public class MainMode implements GameMode{
       // 到達した高さ　- ゴールまでの距離。
       // 得点が高ければ高いほど良い。
       // int score = (int)((-1*(player.returnY() - 380))*1.8) - dis - player.returnJumpCount();
-      int score = (int)((-1*(player.returnY() - 380))*1.8) - dis;
+      int score = (int)((-1*(player.returnY() - 380))*2.5) - dis;
       return score;
     }
 
