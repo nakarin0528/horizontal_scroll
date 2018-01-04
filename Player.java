@@ -17,7 +17,7 @@ public class Player {
     //スピード
     private static final int SPEED = 8;
     //ジャンプ力
-    private static final int JUMP_SPEED = 16;
+    private static final int JUMP_SPEED = 18;
 
     //キャラ種類
     private static final int Red = 0;
@@ -59,7 +59,8 @@ public class Player {
     private boolean APressed;
 
     // 遺伝子
-    private String gene = "";
+    private String gene = "121111221211121111221211211221211111111111111222222";
+    private int index = 0;
 
     public Player(double x, double y, Map map, int p_num) {
 
@@ -93,6 +94,14 @@ public class Player {
     public void move() {
         //重力がかかる
         vy += Map.GRAVITY;
+
+
+        if (index < gene.length()) {
+          this.loadGene(gene.charAt(index));
+          index++;
+        } else {
+          // index = 0;
+        }
 
         if (vx > 0){
           vx -= 1;
@@ -231,17 +240,17 @@ public class Player {
         return y;
     }
 
-    public void loadGene(String gene) {
+    public void loadGene(char gene) {
       switch (gene) {
-        case "0":
+        case '0':
           // 左
           APressed = true;
           break;
-        case "1":
+        case '1':
           // 右
           DPressed = true;
           break;
-        case "2":
+        case '2':
           // ジャンプ
           if (onGround) {
             spacePressed = true;
