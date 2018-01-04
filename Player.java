@@ -240,6 +240,14 @@ public class Player {
           break;
       }
     }
+    // x座標を返す
+    public int returnX() {
+      return (int)this.x;
+    }
+    // y座標を返す
+    public int returnY() {
+      return (int)this.y;
+    }
 
     public void KeyPressedAnalyze(KeyEvent e){
         int key = e.getKeyCode();
