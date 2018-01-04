@@ -6,7 +6,7 @@ public class GA {
 
   public static final int MAX_GEN = 30;          //最大世代交替
   public static final int POP_SIZE = 10;          //集団のサイズ
-  public static final int LEN_CHROM = 10;          //遺伝子の長さ
+  public static final int LEN_CHROM = 22;          //遺伝子の長さ
   public static final double GEN_GAP = 0.2;          //世代交替の割合
   public static final double P_MUTAION = 0.1;          //突然変異の確率
   public static final int RANDOM_MAX = 32767;
@@ -26,15 +26,13 @@ public class GA {
    ------------------------------------------*/
   public long next = 1;
 
-  public int Rand() {
-    // todo: ↓のコードだとおかしくなる
-    // next = next * 1103515245 + 12345;
-    // return (int)(next/65536)%32768;
-    next = (int)(Math.random()*10000);
-    return (int)next;
+  public int rand() {
+    // 絶対値をつけて返す
+    next = next * 1103515245 + 12345;
+    return Math.abs((int)(next/65536)%32768);
   }
 
-  public void Srand(int seed) {
+  public void srand(int seed) {
     next = seed;
   }
 
@@ -42,7 +40,13 @@ public class GA {
   /*------------------------------------------
     データ表示関数
    ------------------------------------------*/
-  public void PrintEachChromFitness(int i) {
+  public void firesPopulation() {
+    System.out.printf("First Population\n");
+    printChromFitness();
+    System.out.printf("----------------------------\n");
+  }
+
+  public void printEachChromFitness(int i) {
     int j;
     System.out.printf("[%d] ",i);
     for (j=0; j<LEN_CHROM; j++) {
@@ -51,43 +55,43 @@ public class GA {
     System.out.printf(": %d\n", fitness[i]);
   }
 
-  public void PrintChromFitness() {
+  public void printChromFitness() {
     int i;
     for (i=0; i<POP_SIZE; i++) {
-      PrintEachChromFitness(i);
+      printEachChromFitness(i);
     }
   }
 
-  public void PrintStatistics(int gen) {
+  public void printStatistics(int gen) {
     System.out.printf("[gen=%2d] max=%d min=%d sumfitness=%d ave=%f\n",
                   gen, max, min, sumfitness, (double)sumfitness/(double)POP_SIZE);
   }
 
-  public void PrintCrossover(int flag, int parent1, int parent2, int child1, int child2, int n_cross) {
+  public void printCrossover(int flag, int parent1, int parent2, int child1, int child2, int n_cross) {
     switch (flag) {
       case BEFORE:
-        System.out.printf("parent1   |"); PrintEachChromFitness(parent1);
-        System.out.printf("parent2   |"); PrintEachChromFitness(parent2);
-        System.out.printf("delete1   |"); PrintEachChromFitness(child1);
-        System.out.printf("delete2   |"); PrintEachChromFitness(child2);
+        System.out.printf("parent1   |"); printEachChromFitness(parent1);
+        System.out.printf("parent2   |"); printEachChromFitness(parent2);
+        System.out.printf("delete1   |"); printEachChromFitness(child1);
+        System.out.printf("delete2   |"); printEachChromFitness(child2);
         System.out.printf("n_cross=%d\n", n_cross);
         break;
       case AFTER:
-        System.out.printf("child1   |"); PrintEachChromFitness(child1);
-        System.out.printf("child2   |"); PrintEachChromFitness(child2);
+        System.out.printf("child1   |"); printEachChromFitness(child1);
+        System.out.printf("child2   |"); printEachChromFitness(child2);
         System.out.printf("----------------------------\n");
         break;
     }
   }
 
-  public void PrintMutation(int flag, int child, int n_mutate) {
+  public void printMutation(int flag, int child, int n_mutate) {
     switch (flag) {
       case BEFORE:
-        System.out.printf("child(OLD)|"); PrintEachChromFitness(child);
+        System.out.printf("child(OLD)|"); printEachChromFitness(child);
         System.out.printf("n_mutate=%d\n", n_mutate);
         break;
       case AFTER:
-        System.out.printf("child(NEW)|"); PrintEachChromFitness(child);
+        System.out.printf("child(NEW)|"); printEachChromFitness(child);
         System.out.printf("----------------------------\n");
         break;
     }
@@ -97,16 +101,16 @@ public class GA {
   /*------------------------------------------
      突然変異
    ------------------------------------------*/
-  public void Mutation(int child) {
+  public void mutation(int child) {
     int n_mutate;
     double rand;
 
-    rand = (double)Rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1とする
+    rand = (double)rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1とする
     if (rand<P_MUTAION) {
       // 突然変異位置
-      n_mutate = Rand()%LEN_CHROM;    // n_mutate=0,・・・,5
+      n_mutate = rand()%LEN_CHROM;    // n_mutate=0,・・・,5
       // 突然変異
-      PrintMutation(BEFORE, child, n_mutate);
+      printMutation(BEFORE, child, n_mutate);
       switch (chrom[child][n_mutate]) {
         case 0:
           chrom[child][n_mutate] = 1;
@@ -115,15 +119,15 @@ public class GA {
           chrom[child][n_mutate] = 0;
           break;
       }
-      fitness[child] = ObjFunc(child);
-      PrintMutation(AFTER, child, n_mutate);
+      fitness[child] = objFunc(child);
+      printMutation(AFTER, child, n_mutate);
     }
   }
 
   /*------------------------------------------
     fitnessの合計値の計算
    ------------------------------------------*/
-  public void Statistics() {
+  public void statistics() {
     int i;
 
     max = 0;
@@ -146,7 +150,7 @@ public class GA {
   /*------------------------------------------
      交叉
    ------------------------------------------*/
-  public void Crossover(int parent1, int parent2, int child1, int child2) {
+  public void crossover(int parent1, int parent2, int child1, int child2) {
     int min2;
     int n_cross;
     int i,j;
@@ -165,10 +169,9 @@ public class GA {
     }
 
     // 交叉位置
-    n_cross = Rand() % (LEN_CHROM-1) + 1;   // n_cross=1,・・・,5
-    System.out.printf("aaaaaaa: ", n_cross);
+    n_cross = rand() % (LEN_CHROM-1) + 1;   // n_cross=1,・・・,9
     // 交叉
-    PrintCrossover(BEFORE, parent1, parent2, child1, child2, n_cross);
+    printCrossover(BEFORE, parent1, parent2, child1, child2, n_cross);
     for (j=0; j<n_cross; j++) {
       chrom[child1][j] = chrom[parent1][j];
       chrom[child2][j] = chrom[parent2][j];
@@ -177,9 +180,9 @@ public class GA {
       chrom[child1][j] = chrom[parent2][j];
       chrom[child2][j] = chrom[parent1][j];
     }
-    fitness[child1] = ObjFunc(child1);
-    fitness[child2] = ObjFunc(child2);
-    PrintCrossover(AFTER, parent1, parent2, child1, child2, n_cross);
+    fitness[child1] = objFunc(child1);
+    fitness[child2] = objFunc(child2);
+    printCrossover(AFTER, parent1, parent2, child1, child2, n_cross);
   }
 
 
@@ -190,7 +193,7 @@ public class GA {
   /*------------------------------------------
     1世代の処理
    ------------------------------------------*/
-  public void Generation(int gen) {
+  public void generation(int gen) {
     int parent1, parent2;
     int child1 = 0;
     int child2 = 0;
@@ -198,18 +201,18 @@ public class GA {
     int i;
 
     //集団の表示
-    Statistics();
-    PrintStatistics(gen);
+    statistics();
+    printStatistics(gen);
 
     //世代交替
     n_gen = (int)((double)POP_SIZE * GEN_GAP/2.0);
     for (i=0; i<n_gen; i++) {
-      Statistics();
-      parent1 = Select();
-      parent2 = Select();
-      Crossover(parent1, parent2, child1, child2);
-      Mutation(child1);
-      Mutation(child2);
+      statistics();
+      parent1 = select();
+      parent2 = select();
+      crossover(parent1, parent2, child1, child2);
+      mutation(child1);
+      mutation(child2);
     }
   }
 
@@ -217,7 +220,7 @@ public class GA {
   /*------------------------------------------
     目的関数（scoreが高ければ高いほど！）
    ------------------------------------------*/
-  public int ObjFunc(int i) {
+  public int objFunc(int i) {
     // int j;
     // int count = 0;
     //
@@ -235,13 +238,13 @@ public class GA {
   /*------------------------------------------
     選択
    ------------------------------------------*/
-  public int Select() {
+  public int select() {
       int i;
       int sum;
       double rand;
 
       sum = 0;
-      rand = (double)Rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1とする
+      rand = (double)rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1とする
 
       for (i=0; i<POP_SIZE; i++) {
         sum += fitness[i];
@@ -254,30 +257,28 @@ public class GA {
   /*------------------------------------------
     初期データ設定
    ------------------------------------------*/
-  public void Initialize() {
+  public void initialize() {
     int i,j;
 
-    scores[0] = 10;
-    scores[1] = 15;
-    scores[2] = 20;
-    scores[3] = 25;
-    scores[4] = 30;
-    scores[5] = 35;
-    scores[6] = 40;
-    scores[7] = 45;
-    scores[8] = 50;
-    scores[9] = 55;
+    // scores[0] = 10;
+    // scores[1] = 15;
+    // scores[2] = 20;
+    // scores[3] = 25;
+    // scores[4] = 30;
+    // scores[5] = 35;
+    // scores[6] = 40;
+    // scores[7] = 45;
+    // scores[8] = 50;
+    // scores[9] = 55;
 
 
     for (i=0; i<POP_SIZE; i++) {
       for (j=0; j<LEN_CHROM; j++) {
-        chrom[i][j] = Rand()%3;
+        chrom[i][j] = rand()%3;
       }
-      fitness[i] = ObjFunc(i);
+      // fitness[i] = ObjFunc(i);
     }
-    System.out.printf("First Population\n");
-    PrintChromFitness();
-    System.out.printf("----------------------------\n");
+
   }
 
 
@@ -299,14 +300,14 @@ public class GA {
   /*------------------------------------------
      メイン関数
    ------------------------------------------*/
-  public static void main(String[] args) {
-    int gen;
-
-    GA ga = new GA();
-    ga.Initialize();
-    for (gen=1; gen<=MAX_GEN; gen++) {
-      ga.Generation(gen);
-    }
-  }
+  // public static void main(String[] args) {
+  //   int gen;
+  //
+  //   GA ga = new GA();
+  //   ga.Initialize();
+  //   for (gen=1; gen<=MAX_GEN; gen++) {
+  //     ga.Generation(gen);
+  //   }
+  // }
 
 }

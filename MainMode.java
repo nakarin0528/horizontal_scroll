@@ -12,6 +12,8 @@ public class MainMode implements GameMode{
 
     //マップ
     private Map MAp;
+    //GA
+    private GA ga;
     //プレイヤー
     private Player[] players = new Player[10];
     private Player player1;
@@ -37,6 +39,9 @@ public class MainMode implements GameMode{
     public void init(int p_num){
         //マップ生成
         MAp = new Map();
+        //ga
+        ga = new GA();
+        ga.initialize();
         //キャラクター生成
         for (int i=0; i<10; i++) {
           players[i] = new Player(90, 380, MAp, p_num);
@@ -46,16 +51,14 @@ public class MainMode implements GameMode{
 
     public void init() {
         // TODO Auto-generated method stub
-        genes[0] = "2112111211111211020000";//右からゴールする遺伝子１
-        genes[1] = "21121121212120021111";
-        genes[2] = "2122111212021020210";
-        genes[3] = "2122111212201211200";
-        genes[4] = "2122111212020102121";
-        genes[5] = "2122111212011120210";
-        genes[6] = "2122111212200200210";
-        genes[7] = "2122111212010210020";
-        genes[8] = "2122111212121102020";
-        genes[9] = "2122111212102021020";
+        int[][] newGenes = ga.returnGenes();
+        for (int i=0; i<ga.POP_SIZE; i++) {
+          for (int j=0; j<ga.LEN_CHROM; j++) {
+            // 文字列に変換して代入
+            genes[i] = genes[i] + newGenes[i][j];
+          }
+          System.out.println(genes[i]);
+        }
         for (int i=0; i<10; i++) {
           players[i].setGene(genes[i]);
         }
@@ -86,7 +89,7 @@ public class MainMode implements GameMode{
       // timerをつかって0.2秒ごとに遺伝子情報を読み込むようにする。
       // player1.loadGene("2");
 
-      System.out.printf("player1のスコア: %d\n", playerScore(players[0]));
+      // System.out.printf("player1のスコア: %d\n", playerScore(players[0]));
       for (int i=0; i<10; i++) {
         players[i].move();
       }
