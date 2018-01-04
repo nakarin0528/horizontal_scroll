@@ -85,7 +85,7 @@ public class MainMode implements GameMode{
 
       // 遺伝子を読ませていって、読ませ終わったら、ストップ
       // timerをつかって0.2秒ごとに遺伝子情報を読み込むようにする。
-      player1.loadGene("01");
+      player1.loadGene("1");
 
       int dis1 = getDistance(player2.returnX(), player2.returnY(), 410, 90);
       System.out.printf("distance: %d\n",dis1);
