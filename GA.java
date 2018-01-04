@@ -5,7 +5,7 @@ public class GA {
 
 
   public static final int MAX_GEN = 30;          //最大世代交替
-  public static final int POP_SIZE = 20;          //集団のサイズ
+  public static final int POP_SIZE = 10;          //集団のサイズ
   public static final int LEN_CHROM = 22;          //遺伝子の長さ
   public static final double GEN_GAP = 0.2;          //世代交替の割合
   public static final double P_MUTAION = 0.1;          //突然変異の確率
