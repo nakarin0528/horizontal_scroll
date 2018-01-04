@@ -3,10 +3,13 @@ import java.awt.Point;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
+// import javax.swing.*;
 
 import javax.swing.ImageIcon;
 
 public class Player {
+
+    // private Timer timer;
 
     //キャラの大きさ
     public static final int WIDTH = 32;
@@ -55,6 +58,9 @@ public class Player {
     private boolean DPressed;
     private boolean APressed;
 
+    // 遺伝子
+    private String gene = "";
+
     public Player(double x, double y, Map map, int p_num) {
 
         p_color = p_num;
@@ -69,6 +75,9 @@ public class Player {
         count = 0;
 
         loadImage();
+        // 0.2秒ごとに動きますか
+        // timer = new Timer(200, this);
+        // timer.start();
 
         //アニメーション用
         AnimationThread thread = new AnimationThread();
@@ -249,6 +258,12 @@ public class Player {
       return (int)this.y;
     }
 
+    // 遺伝子をセット
+    public void setGene(String gene) {
+      this.gene = gene;
+    }
+
+    // 以下キーボード操作
     public void KeyPressedAnalyze(KeyEvent e){
         int key = e.getKeyCode();
 
