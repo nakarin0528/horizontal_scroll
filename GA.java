@@ -115,10 +115,14 @@ public class GA {
       printMutation(BEFORE, child, n_mutate);
       switch (chrom[child][n_mutate]) {
         case 0:
-          chrom[child][n_mutate] = 1;
+          chrom[child][n_mutate] = 2;
           break;
         case 1:
-          chrom[child][n_mutate] = 2;
+          if (rand()%2 == 1) {
+            chrom[child][n_mutate] = 0;
+          } else {
+            chrom[child][n_mutate] = 2;
+          }
           break;
         case 2:
           chrom[child][n_mutate] = 0;
