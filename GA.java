@@ -134,8 +134,8 @@ public class GA {
    ------------------------------------------*/
   public void statistics() {
     int i;
-
-    max = 0;
+    // 最初のスコアがマイナス！！
+    max = -1000;
     min = POP_SIZE;
     sumfitness = 0;
 
