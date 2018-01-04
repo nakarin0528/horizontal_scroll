@@ -3,13 +3,14 @@ import java.awt.Point;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
-// import javax.swing.*;
+import javax.swing.*;
+
 
 import javax.swing.ImageIcon;
 
-public class Player {
+public class Player implements ActionListener{
 
-    // private Timer timer;
+    private Timer timer;
 
     //キャラの大きさ
     public static final int WIDTH = 32;
@@ -59,7 +60,8 @@ public class Player {
     private boolean APressed;
 
     // 遺伝子
-    private String gene = "121111221211121111221211211221211111111111111222222";
+    private String gene = "211222211";
+    //121111221211121111221211211221211111111111111222222
     private int index = 0;
 
     public Player(double x, double y, Map map, int p_num) {
@@ -77,8 +79,8 @@ public class Player {
 
         loadImage();
         // 0.2秒ごとに動きますか
-        // timer = new Timer(200, this);
-        // timer.start();
+        timer = new Timer(200, this);
+        timer.start();
 
         //アニメーション用
         AnimationThread thread = new AnimationThread();
@@ -90,18 +92,19 @@ public class Player {
         vx = 0;
     }
 
+    public void actionPerformed(ActionEvent e){
+      if (index < gene.length()) {
+        this.loadGene(gene.charAt(index));
+        index++;
+      } else {
+        // index = 0;
+      }
+    }
+
     //プレイヤー状態更新
     public void move() {
         //重力がかかる
         vy += Map.GRAVITY;
-
-
-        if (index < gene.length()) {
-          this.loadGene(gene.charAt(index));
-          index++;
-        } else {
-          // index = 0;
-        }
 
         if (vx > 0){
           vx -= 1;
