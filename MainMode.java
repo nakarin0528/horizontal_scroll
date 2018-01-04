@@ -139,7 +139,7 @@ public class MainMode implements GameMode{
       int dis = getDistance(player.returnX(), player.returnY(), 35, 70);
       // 到達した高さ　- ゴールまでの距離。
       // 得点が高ければ高いほど良い。
-      int score = (int)((-1*(player.returnY() - 380))*1.8) - dis - player.returnJumpCount();
+      int score = (int)((-1*(player.returnY() - 380))*2.5) - dis - player.returnJumpCount();
       // int score = (int)((-1*(player.returnY() - 380))*2.5) - dis;
       return score;
     }

@@ -6,7 +6,7 @@ public class GA {
 
   public static final int MAX_GEN = 30;          //最大世代交替
   public static final int POP_SIZE = 20;          //集団のサイズ
-  public static final int LEN_CHROM = 35;          //遺伝子の長さ
+  public static final int LEN_CHROM = 22;          //遺伝子の長さ
   public static final double GEN_GAP = 0.2;          //世代交替の割合
   public static final double P_MUTAION = 0.1;          //突然変異の確率
   public static final int RANDOM_MAX = 32767;
@@ -136,7 +136,7 @@ public class GA {
     int i;
     // 最初のスコアがマイナス！！
     max = -1000;
-    min = POP_SIZE;
+    min = 10000;
     sumfitness = 0;
 
     for (i=0; i<POP_SIZE; i++) {
@@ -163,7 +163,7 @@ public class GA {
     // 一番小さい値を子供としてセット
     child1 = n_min;
     // 2番目に小さい値を見つける
-    min2 = POP_SIZE;
+    min2 = 10000;
     for (i=0; i<POP_SIZE; i++) {
       if (i != child1) {
         if (min<=fitness[i] && fitness[i]<min2) {
@@ -245,6 +245,11 @@ public class GA {
     選択
    ------------------------------------------*/
   public int select() {
+    // int i;
+    // for (i=0; i<POP_SIZE; i++) {
+    //   if (fitness[i] == max) break;
+    // }
+    // return i;
       int i;
       int sum;
       double rand;
@@ -258,6 +263,22 @@ public class GA {
       }
       return i;
   }
+
+  // public int selectSecondMax() {
+  //   int i;
+  //   int max2 = -10000;
+  //   for (i=0; i<POP_SIZE; i++) {
+  //     if (fitness[i] != max) {
+  //       if (max2<=fitness[i]) {
+  //         max2 = fitness[i];
+  //       }
+  //     }
+  //   }
+  //   for (i=0; i<POP_SIZE; i++) {
+  //     if (fitness[i] == max2) break;
+  //   }
+  //   return i;
+  // }
 
 
   /*------------------------------------------
