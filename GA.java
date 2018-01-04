@@ -28,10 +28,10 @@ public class GA {
 
   public int Rand() {
     // todo: ↓のコードだとおかしくなる
-    // next = next * 1103515245 + 12345;
-    // return (int)(next/65536)%32768;
-    next = (int)(Math.random()*10000);
-    return (int)next;
+    next = next * 1103515245 + 12345;
+    return Math.abs((int)(next/65536)%32768);
+    // next = (int)(Math.random()*10000);
+    // return (int)next;
   }
 
   public void Srand(int seed) {
@@ -165,7 +165,7 @@ public class GA {
     }
 
     // 交叉位置
-    n_cross = Rand() % (LEN_CHROM-1) + 1;   // n_cross=1,・・・,5
+    n_cross = Rand() % (LEN_CHROM-1) + 1;   // n_cross=1,・・・,9
     System.out.printf("aaaaaaa: ", n_cross);
     // 交叉
     PrintCrossover(BEFORE, parent1, parent2, child1, child2, n_cross);
