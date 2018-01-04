@@ -14,6 +14,7 @@ public class GA {
   public static final int AFTER = 1;
 
   private int[][] chrom = new int[POP_SIZE][LEN_CHROM];   //染色体
+  private int[] scores = new int[POP_SIZE];
   private int[] fitness = new int[POP_SIZE];            //適合度
   private int max, min, sumfitness;         //適合度のmax,min,sum
   private int n_min;
@@ -165,6 +166,7 @@ public class GA {
 
     // 交叉位置
     n_cross = Rand() % (LEN_CHROM-1) + 1;   // n_cross=1,・・・,5
+    System.out.printf("aaaaaaa: ", n_cross);
     // 交叉
     PrintCrossover(BEFORE, parent1, parent2, child1, child2, n_cross);
     for (j=0; j<n_cross; j++) {
@@ -213,19 +215,20 @@ public class GA {
 
 
   /*------------------------------------------
-    目的関数（1が多いほどGOOD！）
+    目的関数（scoreが高ければ高いほど！）
    ------------------------------------------*/
   public int ObjFunc(int i) {
-    int j;
-    int count = 0;
-
-    for (j=0; j<LEN_CHROM; j++) {
-      if (chrom[i][j] == 1) {
-        count++;
-      }
-    }
-
-    return count;
+    // int j;
+    // int count = 0;
+    //
+    // for (j=0; j<LEN_CHROM; j++) {
+    //   if (chrom[i][j] == 1) {
+    //     count++;
+    //   }
+    // }
+    //
+    // return count;
+    return this.scores[i];
   }
 
 
@@ -254,6 +257,18 @@ public class GA {
   public void Initialize() {
     int i,j;
 
+    scores[0] = 10;
+    scores[1] = 15;
+    scores[2] = 20;
+    scores[3] = 25;
+    scores[4] = 30;
+    scores[5] = 35;
+    scores[6] = 40;
+    scores[7] = 45;
+    scores[8] = 50;
+    scores[9] = 55;
+
+
     for (i=0; i<POP_SIZE; i++) {
       for (j=0; j<LEN_CHROM; j++) {
         chrom[i][j] = Rand()%3;
@@ -265,6 +280,21 @@ public class GA {
     System.out.printf("----------------------------\n");
   }
 
+
+  /*------------------------------------------
+     スコアの設定
+   ------------------------------------------*/
+  public void setScores(int[] scores) {
+    this.scores = scores;
+  }
+
+
+  /*------------------------------------------
+     遺伝子を返す
+   ------------------------------------------*/
+   public int[][] returnGenes() {
+     return this.chrom;
+   }
 
   /*------------------------------------------
      メイン関数
