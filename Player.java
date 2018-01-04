@@ -65,6 +65,7 @@ public class Player implements ActionListener{
     private String gene = "";
     private int index = 0;
     private int jumpCount = 0;
+    private int rightcount = 0;
 
     // 遺伝子読み込み終えたかどうか
     private boolean isFinished = false;
@@ -260,6 +261,7 @@ public class Player implements ActionListener{
         case '1':
           // 右
           DPressed = true;
+          this.rightcount++;
           break;
         case '2':
           // ジャンプ
@@ -282,6 +284,9 @@ public class Player implements ActionListener{
 
     public int returnJumpCount() {
       return this.jumpCount;
+    }
+    public int returnRightCiunt() {
+      return this.rightcount;
     }
 
     // 遺伝子をセット&初期化

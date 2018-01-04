@@ -46,7 +46,7 @@ public class MainMode implements GameMode{
     public void initGene() {
       //キャラクター生成
       for (int i=0; i<ga.POP_SIZE; i++) {
-        players[i] = new Player(320, 380, MAp, 0);
+        players[i] = new Player(550, 380, MAp, 0);
       }
 
       int[][] newGenes = ga.returnGenes();
@@ -95,6 +95,7 @@ public class MainMode implements GameMode{
           players[i].changeToFalse_isFinished();
         }
       }
+
       // 遺伝子が生成されたら、プレーヤーたちリセット
       if (ga.returnIsGenerated()) {
         ga.changeToFalse_isGenerated();
@@ -105,6 +106,7 @@ public class MainMode implements GameMode{
       for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].move();
       }
+
 
       // if(player1.HitCheck()){
       //    gm.ChangeMode(new MainMode(0));
@@ -139,7 +141,7 @@ public class MainMode implements GameMode{
       int dis = getDistance(player.returnX(), player.returnY(), 35, 70);
       // 到達した高さ　- ゴールまでの距離。
       // 得点が高ければ高いほど良い。
-      int score = (int)((-1*(player.returnY() - 380))*3) - (int)(dis*1.5) - player.returnJumpCount();
+      int score = (int)((-2*(player.returnY() - 380))*3) - (int)(dis*2.5) - player.returnJumpCount() - 3 * player.returnRightCiunt();
       // int score = (int)((-1*(player.returnY() - 380))*2.5) - dis;
       return score;
     }
