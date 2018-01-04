@@ -87,8 +87,7 @@ public class MainMode implements GameMode{
       // timerをつかって0.2秒ごとに遺伝子情報を読み込むようにする。
       player1.loadGene("1");
 
-      int dis1 = getDistance(player2.returnX(), player2.returnY(), 410, 90);
-      System.out.printf("distance: %d\n",dis1);
+      System.out.printf("player1のスコア: %d\n", playerScore(player2));
       player1.move();
       player2.move();
       player3.move();
@@ -144,6 +143,14 @@ public class MainMode implements GameMode{
     public int getDistance(double x, double y, double x2, double y2) {
       double distance = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y));
       return (int) distance;
+    }
+
+    public int playerScore(Player player) {
+      // ゴールまでの距離
+      int dis1 = getDistance(player.returnX(), player.returnY(), 410, 90);
+      // ゴールまでの距離 - 高さでスコアが低ければ低いほど良い。
+      int score = dis1 + (player.returnY() - 380);
+      return score;
     }
 
 }
