@@ -13,6 +13,7 @@ public class MainMode implements GameMode{
     //マップ
     private Map MAp;
     //プレイヤー
+    private Player[] players = new Player[10];
     private Player player1;
     private Player player2;
     private Player player3;
@@ -33,25 +34,22 @@ public class MainMode implements GameMode{
         init(p_num);
     }
 
-    public void init() {
-        // TODO Auto-generated method stub
-    }
-
     public void init(int p_num){
         //マップ生成
         MAp = new Map();
         //キャラクター生成
-        player1 = new Player(90, 380, MAp, p_num);
-        player2 = new Player(90, 380, MAp, p_num);
-        player3 = new Player(90, 380, MAp, p_num);
-        player4 = new Player(90, 380, MAp, p_num);
-        player5 = new Player(90, 380, MAp, p_num);
-        player6 = new Player(90, 380, MAp, p_num);
-        player7 = new Player(90, 380, MAp, p_num);
-        player8 = new Player(90, 380, MAp, p_num);
-        player9 = new Player(90, 380, MAp, p_num);
-        player10 = new Player(90, 380, MAp, p_num);
+        for (int i=0; i<10; i++) {
+          players[i] = new Player(90, 380, MAp, p_num);
+        }
+        this.init();
+    }
 
+    public void init() {
+        // TODO Auto-generated method stub
+
+        for (int i=0; i<10; i++) {
+          players[i].setGene("2122111212121102020");
+        }
     }
 
     public void Show(Graphics2D g2){
@@ -68,17 +66,9 @@ public class MainMode implements GameMode{
         //マップ
         MAp.show(g2, 0, 0);
         //プレイヤー
-        player1.show(g2, 0, 0);
-        player2.show(g2, 0, 0);
-        player3.show(g2, 0, 0);
-        player4.show(g2, 0, 0);
-        player5.show(g2, 0, 0);
-        player6.show(g2, 0, 0);
-        player7.show(g2, 0, 0);
-        player8.show(g2, 0, 0);
-        player9.show(g2, 0, 0);
-        player10.show(g2, 0, 0);
-
+        for (int i=0; i<10; i++) {
+          players[i].show(g2, 0, 0);
+        }
     }
 
     public void run(GameManager gm){
@@ -87,57 +77,29 @@ public class MainMode implements GameMode{
       // timerをつかって0.2秒ごとに遺伝子情報を読み込むようにする。
       // player1.loadGene("2");
 
-      System.out.printf("player1のスコア: %d\n", playerScore(player2));
-      player1.move();
-      player2.move();
-      player3.move();
-      player4.move();
-      player5.move();
-      player6.move();
-      player7.move();
-      player8.move();
-      player9.move();
-      player10.move();
+      System.out.printf("player1のスコア: %d\n", playerScore(players[0]));
+      for (int i=0; i<10; i++) {
+        players[i].move();
+      }
       // if(player1.HitCheck()){
       //    gm.ChangeMode(new MainMode(0));
       //  }
     }
 
     public void KeyPressed(KeyEvent arg0){
-        player1.KeyPressedAnalyze(arg0);
-        player2.KeyPressedAnalyze(arg0);
-        player3.KeyPressedAnalyze(arg0);
-        player4.KeyPressedAnalyze(arg0);
-        player5.KeyPressedAnalyze(arg0);
-        player6.KeyPressedAnalyze(arg0);
-        player7.KeyPressedAnalyze(arg0);
-        player8.KeyPressedAnalyze(arg0);
-        player9.KeyPressedAnalyze(arg0);
-        player10.KeyPressedAnalyze(arg0);
+      for (int i=0; i<10; i++) {
+        players[i].KeyPressedAnalyze(arg0);
+      }
     }
     public void KeyReleased(KeyEvent arg0){
-        player1.KeyReleasedAnalyze(arg0);
-        player2.KeyReleasedAnalyze(arg0);
-        player3.KeyReleasedAnalyze(arg0);
-        player4.KeyReleasedAnalyze(arg0);
-        player5.KeyReleasedAnalyze(arg0);
-        player6.KeyReleasedAnalyze(arg0);
-        player7.KeyReleasedAnalyze(arg0);
-        player8.KeyReleasedAnalyze(arg0);
-        player9.KeyReleasedAnalyze(arg0);
-        player10.KeyReleasedAnalyze(arg0);
+      for (int i=0; i<10; i++) {
+        players[i].KeyReleasedAnalyze(arg0);
+      }
     }
     public void KeyTyped(KeyEvent arg0){
-        player1.KeyTypedAnalyze(arg0);
-        player2.KeyTypedAnalyze(arg0);
-        player3.KeyTypedAnalyze(arg0);
-        player4.KeyTypedAnalyze(arg0);
-        player5.KeyTypedAnalyze(arg0);
-        player6.KeyTypedAnalyze(arg0);
-        player7.KeyTypedAnalyze(arg0);
-        player8.KeyTypedAnalyze(arg0);
-        player9.KeyTypedAnalyze(arg0);
-        player10.KeyTypedAnalyze(arg0);
+      for (int i=0; i<10; i++) {
+        players[i].KeyTypedAnalyze(arg0);
+      }
     }
 
     public int getDistance(double x, double y, double x2, double y2) {
