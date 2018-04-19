@@ -1,22 +1,19 @@
-
-
-
 public class GA {
 
 
-  public static final int MAX_GEN = 30;          //æœ€å¤§ä¸–ä»£äº¤æ›¿
-  public static final int POP_SIZE = 20;          //é›†å›£ã®ã‚µã‚¤ã‚º
-  public static final int LEN_CHROM = 22;          //éºä¼å­ã®é•·ã•
-  public static final double GEN_GAP = 0.2;          //ä¸–ä»£äº¤æ›¿ã®å‰²åˆ
-  public static final double P_MUTAION = 0.1;          //çªç„¶å¤‰ç•°ã®ç¢ºç‡
+  public static final int MAX_GEN = 30;          //Å‘å¢‘ãŒğ‘Ö
+  public static final int POP_SIZE = 20;          //W’c‚ÌƒTƒCƒY
+  public static final int LEN_CHROM = 22;          //ˆâ“`q‚Ì’·‚³
+  public static final double GEN_GAP = 0.2;          //¢‘ãŒğ‘Ö‚ÌŠ„‡
+  public static final double P_MUTAION = 0.1;          //“Ë‘R•ÏˆÙ‚ÌŠm—¦
   public static final int RANDOM_MAX = 32767;
   public static final int BEFORE = 0;
   public static final int AFTER = 1;
 
-  private int[][] chrom = new int[POP_SIZE][LEN_CHROM];   //æŸ“è‰²ä½“
+  private int[][] chrom = new int[POP_SIZE][LEN_CHROM];   //õF‘Ì
   private int[] scores = new int[POP_SIZE];
-  private int[] fitness = new int[POP_SIZE];            //é©åˆåº¦
-  private int max, min, sumfitness;         //é©åˆåº¦ã®max,min,sum
+  private int[] fitness = new int[POP_SIZE];            //“K‡“x
+  private int max, min, sumfitness;         //“K‡“x‚Ìmax,min,sum
   private int n_min;
 
   private boolean isGenerated = false;
@@ -24,12 +21,12 @@ public class GA {
 
 
   /*------------------------------------------
-    æ“¬ä¼¼ä¹±æ•°
+    ‹[——”
    ------------------------------------------*/
   public long next = 1;
 
   public int rand() {
-    // çµ¶å¯¾å€¤ã‚’ã¤ã‘ã¦è¿”ã™
+    // â‘Î’l‚ğ‚Â‚¯‚Ä•Ô‚·
     next = next * 1103515245 + 12345;
     return Math.abs((int)(next/65536)%32768);
   }
@@ -40,7 +37,7 @@ public class GA {
 
 
   /*------------------------------------------
-    ãƒ‡ãƒ¼ã‚¿è¡¨ç¤ºé–¢æ•°
+    ƒf[ƒ^•\¦ŠÖ”
    ------------------------------------------*/
   public void firesPopulation() {
     System.out.printf("First Population\n");
@@ -101,17 +98,17 @@ public class GA {
 
 
   /*------------------------------------------
-     çªç„¶å¤‰ç•°
+     “Ë‘R•ÏˆÙ
    ------------------------------------------*/
   public void mutation(int child) {
     int n_mutate;
     double rand;
 
-    rand = (double)rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1ã¨ã™ã‚‹
+    rand = (double)rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1‚Æ‚·‚é
     if (rand<P_MUTAION) {
-      // çªç„¶å¤‰ç•°ä½ç½®
-      n_mutate = rand()%LEN_CHROM;    // n_mutate=0,ãƒ»ãƒ»ãƒ»,5
-      // çªç„¶å¤‰ç•°
+      // “Ë‘R•ÏˆÙˆÊ’u
+      n_mutate = rand()%LEN_CHROM;    // n_mutate=0,EEE,5
+      // “Ë‘R•ÏˆÙ
       printMutation(BEFORE, child, n_mutate);
       switch (chrom[child][n_mutate]) {
         case 0:
@@ -130,11 +127,11 @@ public class GA {
   }
 
   /*------------------------------------------
-    fitnessã®åˆè¨ˆå€¤ã®è¨ˆç®—
+    fitness‚Ì‡Œv’l‚ÌŒvZ
    ------------------------------------------*/
   public void statistics() {
     int i;
-    // æœ€åˆã®ã‚¹ã‚³ã‚¢ãŒãƒã‚¤ãƒŠã‚¹ï¼ï¼
+    // Å‰‚ÌƒXƒRƒA‚ªƒ}ƒCƒiƒXII
     max = -1000;
     min = 10000;
     sumfitness = 0;
@@ -153,16 +150,16 @@ public class GA {
 
 
   /*------------------------------------------
-     äº¤å‰
+     Œğ³
    ------------------------------------------*/
   public void crossover(int parent1, int parent2, int child1, int child2) {
     int min2;
     int n_cross;
     int i,j;
 
-    // ä¸€ç•ªå°ã•ã„å€¤ã‚’å­ä¾›ã¨ã—ã¦ã‚»ãƒƒãƒˆ
+    // ˆê”Ô¬‚³‚¢’l‚ğq‹Ÿ‚Æ‚µ‚ÄƒZƒbƒg
     child1 = n_min;
-    // 2ç•ªç›®ã«å°ã•ã„å€¤ã‚’è¦‹ã¤ã‘ã‚‹
+    // 2”Ô–Ú‚É¬‚³‚¢’l‚ğŒ©‚Â‚¯‚é
     min2 = 10000;
     for (i=0; i<POP_SIZE; i++) {
       if (i != child1) {
@@ -173,9 +170,9 @@ public class GA {
       }
     }
 
-    // äº¤å‰ä½ç½®
-    n_cross = rand() % (LEN_CHROM-1) + 1;   // n_cross=1,ãƒ»ãƒ»ãƒ»,9
-    // äº¤å‰
+    // Œğ³ˆÊ’u
+    n_cross = rand() % (LEN_CHROM-1) + 1;   // n_cross=1,EEE,9
+    // Œğ³
     printCrossover(BEFORE, parent1, parent2, child1, child2, n_cross);
     for (j=0; j<n_cross; j++) {
       chrom[child1][j] = chrom[parent1][j];
@@ -196,7 +193,7 @@ public class GA {
 
 
   /*------------------------------------------
-    1ä¸–ä»£ã®å‡¦ç†
+    1¢‘ã‚Ìˆ—
    ------------------------------------------*/
   public void generation(int gen) {
     int parent1, parent2;
@@ -205,11 +202,11 @@ public class GA {
     int n_gen;
     int i;
 
-    //é›†å›£ã®è¡¨ç¤º
+    //W’c‚Ì•\¦
     statistics();
     printStatistics(gen);
 
-    //ä¸–ä»£äº¤æ›¿
+    //¢‘ãŒğ‘Ö
     n_gen = (int)((double)POP_SIZE * GEN_GAP/2.0);
     for (i=0; i<n_gen; i++) {
       statistics();
@@ -224,7 +221,7 @@ public class GA {
 
 
   /*------------------------------------------
-    ç›®çš„é–¢æ•°ï¼ˆscoreãŒé«˜ã‘ã‚Œã°é«˜ã„ã»ã©ï¼ï¼‰
+    –Ú“IŠÖ”iscore‚ª‚‚¯‚ê‚Î‚‚¢‚Ù‚ÇIj
    ------------------------------------------*/
   public int objFunc(int i) {
     // int j;
@@ -242,7 +239,7 @@ public class GA {
 
 
   /*------------------------------------------
-    é¸æŠ
+    ‘I‘ğ
    ------------------------------------------*/
   public int select() {
     // int i;
@@ -255,7 +252,7 @@ public class GA {
       double rand;
 
       sum = 0;
-      rand = (double)rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1ã¨ã™ã‚‹
+      rand = (double)rand() / ((double)(RANDOM_MAX+1));   // 0<=num<1‚Æ‚·‚é
 
       for (i=0; i<POP_SIZE; i++) {
         sum += fitness[i];
@@ -282,7 +279,7 @@ public class GA {
 
 
   /*------------------------------------------
-    åˆæœŸãƒ‡ãƒ¼ã‚¿è¨­å®š
+    ‰Šúƒf[ƒ^İ’è
    ------------------------------------------*/
   public void initialize() {
     int i,j;
@@ -298,28 +295,28 @@ public class GA {
 
 
   /*------------------------------------------
-     ã‚¹ã‚³ã‚¢ã®è¨­å®š
+     ƒXƒRƒA‚Ìİ’è
    ------------------------------------------*/
   public void setScores(int[] scores, int gen) {
     for (int i=0; i<POP_SIZE; i++) {
-      //todo: ojbjFuncçµŒç”±ã—ãªãã¦ã„ã„ã‚“ã˜ã‚ƒã­
+      //todo: ojbjFuncŒo—R‚µ‚È‚­‚Ä‚¢‚¢‚ñ‚¶‚á‚Ë
       this.scores[i] = scores[i];
       this.fitness[i] = objFunc(i);
     }
-    // ã‚¹ã‚³ã‚¢ãŒã‚»ãƒƒãƒˆã•ã‚ŒãŸã‚‰ã€æ¬¡ä¸–ä»£ä½œã‚Šã¾ã—ã‚‡ã†ï¼
+    // ƒXƒRƒA‚ªƒZƒbƒg‚³‚ê‚½‚çAŸ¢‘ãì‚è‚Ü‚µ‚å‚¤I
     generation(gen);
   }
 
 
   /*------------------------------------------
-     éºä¼å­ã‚’è¿”ã™
+     ˆâ“`q‚ğ•Ô‚·
    ------------------------------------------*/
    public int[][] returnGenes() {
      return this.chrom;
    }
 
    /*------------------------------------------
-      éºä¼å­ã‚’è¿”ã™
+      ˆâ“`q‚ğ•Ô‚·
     ------------------------------------------*/
   public boolean returnIsGenerated() {
     return this.isGenerated;
@@ -331,7 +328,7 @@ public class GA {
 
 
   /*------------------------------------------
-     ãƒ¡ã‚¤ãƒ³é–¢æ•°
+     ƒƒCƒ“ŠÖ”
    ------------------------------------------*/
   // public static void main(String[] args) {
   //   int gen;

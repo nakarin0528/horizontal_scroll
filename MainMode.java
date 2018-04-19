@@ -5,20 +5,20 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import java.awt.*;
 
-// ã‚´ãƒ¼ãƒ«ã®åº§æ¨™ï¼ˆ410, 90ï¼‰
+// ƒS[ƒ‹‚ÌÀ•Wi410, 90j
 
 
 public class MainMode implements GameMode{
 
-    //ãƒãƒƒãƒ—
+    //ƒ}ƒbƒv
     private Map MAp;
     //GA
     private GA ga;
-    //ä¸–ä»£
+    //¢‘ã
     private int gen=1;
-    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+    //ƒvƒŒƒCƒ„[
     private Player[] players = new Player[ga.POP_SIZE];
-    //éºä¼å­
+    //ˆâ“`q
     private String[] genes;
 
     public static final int WIDTH = 640;
@@ -32,7 +32,7 @@ public class MainMode implements GameMode{
     }
 
     public void init(int p_num){
-        //ãƒãƒƒãƒ—ç”Ÿæˆ
+        //ƒ}ƒbƒv¶¬
         MAp = new Map();
         //ga
         ga = new GA();
@@ -44,7 +44,7 @@ public class MainMode implements GameMode{
     }
 
     public void initGene() {
-      //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç”Ÿæˆ
+      //ƒLƒƒƒ‰ƒNƒ^[¶¬
       for (int i=0; i<ga.POP_SIZE; i++) {
         players[i] = new Player(320, 380, MAp, 0);
       }
@@ -54,7 +54,7 @@ public class MainMode implements GameMode{
 
       for (int i=0; i<ga.POP_SIZE; i++) {
         for (int j=0; j<ga.LEN_CHROM; j++) {
-          // æ–‡å­—åˆ—ã«å¤‰æ›ã—ã¦ä»£å…¥
+          // •¶š—ñ‚É•ÏŠ·‚µ‚Ä‘ã“ü
           genes[i] = genes[i] + newGenes[i][j];
         }
       }
@@ -64,27 +64,27 @@ public class MainMode implements GameMode{
     }
 
     public void Show(Graphics2D g2){
-        //èƒŒæ™¯
+        //”wŒi
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
-        //ãƒãƒƒãƒ—
+        //ƒ}ƒbƒv
         MAp.show(g2, 0, 0);
-        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
+        //ƒvƒŒƒCƒ„[
         for (int i=0; i<ga.POP_SIZE; i++) {
           players[i].show(g2, 0, 0);
         }
     }
 
     public void run(GameManager gm){
-      // éºä¼å­æ¶ˆåŒ–ã•ã‚ŒãŸã‚‰ã€ãƒ‡ãƒ¼ã‚¿ã‚’æ¸¡ã—ã¦ã€æ¬¡ã®éºä¼å­ã‚’ã‚‚ã‚‰ã†ã€‚
-      // éºä¼å­ã®é•·ã•ã¯ä¸€ç·’ãªã®ã§ã©ã‚Œã‹1ã¤ã¿ã‚Œã°ã‚ˆã„ã€‚
+      // ˆâ“`qÁ‰»‚³‚ê‚½‚çAƒf[ƒ^‚ğ“n‚µ‚ÄAŸ‚Ìˆâ“`q‚ğ‚à‚ç‚¤B
+      // ˆâ“`q‚Ì’·‚³‚Íˆê‚È‚Ì‚Å‚Ç‚ê‚©1‚Â‚İ‚ê‚Î‚æ‚¢B
       if (players[0].returnIsFinished()) {
         int[] scores = new int[ga.POP_SIZE];
-        System.out.printf("/* éºä¼å­æƒ…å ±ã¨ã‚¹ã‚³ã‚¢ */\n");
+        System.out.printf("/* ˆâ“`qî•ñ‚ÆƒXƒRƒA */\n");
         for (int i=0; i<ga.POP_SIZE; i++) {
           scores[i] = this.playerScore(players[i]);
           System.out.printf("[%d]: ", i);
-          // æœ€åˆãªã‚“ã‹null
+          // Å‰‚È‚ñ‚©null
           System.out.printf(genes[i]);
           System.out.printf(" -> %d \n", scores[i]);
         }
@@ -95,13 +95,13 @@ public class MainMode implements GameMode{
           players[i].changeToFalse_isFinished();
         }
       }
-      // éºä¼å­ãŒç”Ÿæˆã•ã‚ŒãŸã‚‰ã€ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãŸã¡ãƒªã‚»ãƒƒãƒˆ
+      // ˆâ“`q‚ª¶¬‚³‚ê‚½‚çAƒvƒŒ[ƒ„[‚½‚¿ƒŠƒZƒbƒg
       if (ga.returnIsGenerated()) {
         ga.changeToFalse_isGenerated();
         this.initGene();
       }
 
-      // System.out.printf("player1ã®ã‚¹ã‚³ã‚¢: %d\n", playerScore(players[0]));
+      // System.out.printf("player1‚ÌƒXƒRƒA: %d\n", playerScore(players[0]));
       for (int i=0; i<ga.POP_SIZE; i++) {
         players[i].move();
       }
@@ -127,18 +127,18 @@ public class MainMode implements GameMode{
       }
     }
 
-    // ã‚´ãƒ¼ãƒ«ã¾ã§ã®è·é›¢
+    // ƒS[ƒ‹‚Ü‚Å‚Ì‹——£
     public int getDistance(double x, double y, double x2, double y2) {
       double distance = Math.sqrt((x2 - x) * (x2 - x) + (y2 - y) * (y2 - y));
       return (int) distance;
     }
 
-    // ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ã®ã‚¹ã‚³ã‚¢
+    // ƒvƒŒ[ƒ„[‚ÌƒXƒRƒA
     public int playerScore(Player player) {
-      // ã‚´ãƒ¼ãƒ«(35,70)ã¾ã§ã®è·é›¢
+      // ƒS[ƒ‹(35,70)‚Ü‚Å‚Ì‹——£
       int dis = getDistance(player.returnX(), player.returnY(), 35, 70);
-      // åˆ°é”ã—ãŸé«˜ã•ã€€- ã‚´ãƒ¼ãƒ«ã¾ã§ã®è·é›¢ã€‚
-      // å¾—ç‚¹ãŒé«˜ã‘ã‚Œã°é«˜ã„ã»ã©è‰¯ã„ã€‚
+      // “’B‚µ‚½‚‚³@- ƒS[ƒ‹‚Ü‚Å‚Ì‹——£B
+      // “¾“_‚ª‚‚¯‚ê‚Î‚‚¢‚Ù‚Ç—Ç‚¢B
       int score = (int)((-1*(player.returnY() - 380))*3) - (int)(dis*1.5) - player.returnJumpCount();
       // int score = (int)((-1*(player.returnY() - 380))*2.5) - dis;
       return score;

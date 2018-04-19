@@ -10,18 +10,18 @@ import java.lang.String;
 
 public class Map {
 
-    //ãƒ–ãƒ­ãƒƒã‚¯ã‚µã‚¤ã‚º
+    //ƒuƒƒbƒNƒTƒCƒY
     public static final int TILE_SIZE = 32;
-    //è¡Œæ•°åˆ—æ•°
+    //s”—ñ”
     public static final int ROW = 15;
     public static final int COL = 100;
-    //å¹…ãƒ»é«˜ã•
+    //•E‚‚³
     public static final int WIDTH = TILE_SIZE*COL;
     public static final int HEIGHT = TILE_SIZE*ROW;
-    //é‡åŠ›
+    //d—Í
     public static final double GRAVITY = 1.5;
 
-    //ãƒãƒƒãƒ—
+    //ƒ}ƒbƒv
     public int[][] map = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,4,4,4,4,4,4,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,5,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
@@ -40,7 +40,7 @@ public class Map {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2}
   };
 
-    //ç´ æ
+    //‘fŞ
     private Image blockImage;   //1
     private Image hari_up;      //3
     private Image hari_down;    //4
@@ -52,24 +52,24 @@ public class Map {
     }
 
     public void show(Graphics2D g2, int offsetX, int offsetY){
-        //offsetã‚’å…ƒã«æç”»ç¯„å›²ã‚’ç®—å‡º
+        //offset‚ğŒ³‚É•`‰æ”ÍˆÍ‚ğZo
         int firstTileX = pixelsToTiles(-offsetX);
         int lastTileX = firstTileX + pixelsToTiles(MainMode.WIDTH) + 1;
         int firstTileY = pixelsToTiles(-offsetY);
         int lastTileY = firstTileY + pixelsToTiles(MainMode.HEIGHT) + 1;
-        //æç”»ç¯„å›²ã‚’ãƒãƒƒãƒ—ã‚ˆã‚Šå°ã•ãã—ã¨ã
+        //•`‰æ”ÍˆÍ‚ğƒ}ƒbƒv‚æ‚è¬‚³‚­‚µ‚Æ‚­
         lastTileX = Math.min(lastTileX, COL);
         lastTileY = Math.min(lastTileY, ROW);
 
         g2.setColor(Color.RED);
         for (int i = firstTileY; i<lastTileY; i++){
             for (int j = firstTileX; j<lastTileX; j++){
-                //mapã®å€¤ã«å¿œã˜ã¦æç”»
+                //map‚Ì’l‚É‰‚¶‚Ä•`‰æ
                 switch (map[i][j]) {
                     case 1:
                         g2.drawImage(blockImage, tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, null);
                         break;
-                    case 2: // ãƒ–ãƒ­ãƒƒã‚¯
+                    case 2: // ƒuƒƒbƒN
                         g2.fillRect(tilesToPixels(j) + offsetX,
                                    tilesToPixels(i) + offsetY,
                                    TILE_SIZE, TILE_SIZE);
@@ -108,17 +108,17 @@ public class Map {
         int toTileX = pixelsToTiles(toX + Player.WIDTH - 1);
         int toTileY = pixelsToTiles(toY + Player.HEIGHT - 1);
 
-        //è¡çªåˆ¤å®š
+        //Õ“Ë”»’è
         for (int x = fromTileX; x<=toTileX; x++){
             for(int y = fromTileY; y<=toTileY;y++){
-                //ãƒãƒƒãƒ—å¤–ã¯è¡çª
+                //ƒ}ƒbƒvŠO‚ÍÕ“Ë
                 if(y<0 || x>=COL){
                     return new Point(x,y);
                 }
                 if (y < 0 || y >= ROW) {
                     return new Point(x, y);
                 }
-                //ãƒ–ãƒ­ãƒƒã‚¯è¡çª
+                //ƒuƒƒbƒNÕ“Ë
                 if(map[y][x] == 1){
                     return new Point(x,y);
                 }
@@ -147,7 +147,7 @@ public class Map {
         for (int x = fromTileX; x<=toTileX; x++){
             for(int y = fromTileY; y<=toTileY; y++){
 
-                //ã‚´ãƒ¼ãƒ«ã¨é‡è¡çª
+                //ƒS[ƒ‹‚ÆjÕ“Ë
                 if(map[y][x] >= 2 && map[y][x] <= 6){
                     return new Point(x, y);
                 }
@@ -169,12 +169,12 @@ public class Map {
         hari_right = icon5.getImage();
     }
 
-    //ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã‚’ã‚¿ã‚¤ãƒ«å˜ä½ã¸å¤‰æ›´
+    //ƒsƒNƒZƒ‹’PˆÊ‚ğƒ^ƒCƒ‹’PˆÊ‚Ö•ÏX
     public static int pixelsToTiles(double pixels) {
         return (int)Math.floor(pixels/TILE_SIZE);
     }
 
-    //ã‚¿ã‚¤ãƒ«å˜ä½ã‚’ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã¸å¤‰æ›´
+    //ƒ^ƒCƒ‹’PˆÊ‚ğƒsƒNƒZƒ‹’PˆÊ‚Ö•ÏX
     public static int tilesToPixels(int tiles){
         return tiles*TILE_SIZE;
     }

@@ -12,61 +12,61 @@ public class Player implements ActionListener{
 
     private Timer timer;
 
-    //ã‚­ãƒ£ãƒ©ã®å¤§ãã•
+    //ƒLƒƒƒ‰‚Ì‘å‚«‚³
     public static final int WIDTH = 32;
     public static final int HEIGHT = 32;
-    //ã‚¹ãƒ”ãƒ¼ãƒ‰
+    //ƒXƒs[ƒh
     private static final int SPEED = 8;
-    //ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
+    //ƒWƒƒƒ“ƒv—Í
     private static final int JUMP_SPEED = 19;
 
-    //ã‚­ãƒ£ãƒ©ç¨®é¡
+    //ƒLƒƒƒ‰í—Ş
     private static final int Red = 0;
     private static final int Blue = 1;
     private static final int Yellow = 2;
 
-    //ä½ç½®
+    //ˆÊ’u
     private double x;
     private double y;
     private double defaultX;
     private double defaultY;
 
-    //é€Ÿåº¦
+    //‘¬“x
     private double vx;
     private double vy;
 
-    //ç€åœ°ã—ã¦ã„ã‚‹ã‹
+    //’…’n‚µ‚Ä‚¢‚é‚©
     private boolean onGround;
 
-    //ä½¿ç”¨ã™ã‚‹ã‚­ãƒ£ãƒ©
+    //g—p‚·‚éƒLƒƒƒ‰
     private int p_color;
 
-    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚«ã‚¦ãƒ³ã‚¿
+    //ƒAƒjƒ[ƒVƒ‡ƒ“—pƒJƒEƒ“ƒ^
     private int count;
 
-    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”»åƒ
+    //ƒvƒŒƒCƒ„[‰æ‘œ
     private Image image;
 
-    //ãƒãƒƒãƒ—ã¸ã®å‚ç…§
+    //ƒ}ƒbƒv‚Ö‚ÌQÆ
     private Map map;
 
-    //å¤©äº•ã«ã¤ã„ãŸã‹ã©ã†ã‹
+    //“Vˆä‚É‚Â‚¢‚½‚©‚Ç‚¤‚©
     private boolean onCeiling;
 
-    //å½“ãŸã‚Šåˆ¤å®šç”¨
+    //“–‚½‚è”»’è—p
     private boolean hitCheck_x, hitCheck_y;
 
-    //ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹
+    //ƒL[‚Ì“ü—Íó‘Ô
     private boolean spacePressed;
     private boolean DPressed;
     private boolean APressed;
 
-    // éºä¼å­
+    // ˆâ“`q
     private String gene = "";
     private int index = 0;
     private int jumpCount = 0;
 
-    // éºä¼å­èª­ã¿è¾¼ã¿çµ‚ãˆãŸã‹ã©ã†ã‹
+    // ˆâ“`q“Ç‚İ‚İI‚¦‚½‚©‚Ç‚¤‚©
     private boolean isFinished = false;
 
     public Player(double x, double y, Map map, int p_num) {
@@ -83,16 +83,16 @@ public class Player implements ActionListener{
         count = 0;
 
         loadImage();
-        // 0.2ç§’ã”ã¨ã«å‹•ãã¾ã™ã‹
+        // 0.2•b‚²‚Æ‚É“®‚«‚Ü‚·‚©
         timer = new Timer(200, this);
         timer.start();
 
-        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨
+        //ƒAƒjƒ[ƒVƒ‡ƒ“—p
         AnimationThread thread = new AnimationThread();
         thread.start();
     }
 
-    //åœæ­¢
+    //’â~
     public void stop() {
         vx = 0;
     }
@@ -102,14 +102,14 @@ public class Player implements ActionListener{
         this.loadGene(gene.charAt(index));
         index++;
       } else {
-        // éºä¼å­æ¶ˆåŒ–ã—ãŸ
+        // ˆâ“`qÁ‰»‚µ‚½
         this.isFinished = true;
       }
     }
 
-    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼çŠ¶æ…‹æ›´æ–°
+    //ƒvƒŒƒCƒ„[ó‘ÔXV
     public void move() {
-        //é‡åŠ›ãŒã‹ã‹ã‚‹
+        //d—Í‚ª‚©‚©‚é
         vy += Map.GRAVITY;
 
         if (vx > 0){
@@ -118,13 +118,13 @@ public class Player implements ActionListener{
         if (vx < 0){
           vx += 1;
         }
-        // ã‚¸ãƒ£ãƒ³ãƒ—ãŒã‚ã‚‹æ™‚ã¯å…ˆã«é£›ã°ã›ã¦ã€ä¹—ç§»ã‚Šã‚„ã™ãã™ã‚‹
+        // ƒWƒƒƒ“ƒv‚ª‚ ‚é‚Íæ‚É”ò‚Î‚¹‚ÄAæˆÚ‚è‚â‚·‚­‚·‚é
         if (spacePressed) {
             vy = -JUMP_SPEED;
             spacePressed = false;
         }
-        /*xæ–¹å‘ã®å½“ãŸã‚Šåˆ¤å®š*/
-        //ç§»å‹•å…ˆ
+        /*x•ûŒü‚Ì“–‚½‚è”»’è*/
+        //ˆÚ“®æ
         if  (DPressed) {
             vx = SPEED;
         }
@@ -132,32 +132,32 @@ public class Player implements ActionListener{
             vx = -SPEED;
         }
         double newX = x + vx;
-        //ç§»å‹•å…ˆã®ã‚¿ã‚¤ãƒ«ã®æœ‰ç„¡
+        //ˆÚ“®æ‚Ìƒ^ƒCƒ‹‚Ì—L–³
         Point tile = map.getTileCollision(this, newX, y);
-        if (tile==null) {   //ã‚¿ã‚¤ãƒ«ãªã—
+        if (tile==null) {   //ƒ^ƒCƒ‹‚È‚µ
             x = newX;
-        } else {    //ã‚¿ã‚¤ãƒ«ã‚ã‚Š
+        } else {    //ƒ^ƒCƒ‹‚ ‚è
             if (vx > 0) {
-                x = Map.tilesToPixels(tile.x) - WIDTH;  //ä½ç½®èª¿æ•´
+                x = Map.tilesToPixels(tile.x) - WIDTH;  //ˆÊ’u’²®
             }
             vx = 0;
         }
 
-        /*yæ–¹å‘ã®å½“ãŸã‚Šåˆ¤å®š*/
-        //ç§»å‹•å…ˆ
+        /*y•ûŒü‚Ì“–‚½‚è”»’è*/
+        //ˆÚ“®æ
         double newY = y + vy;
-        //ç§»å‹•å…ˆã®ã‚¿ã‚¤ãƒ«ã®æœ‰ç„¡
+        //ˆÚ“®æ‚Ìƒ^ƒCƒ‹‚Ì—L–³
         tile = map.getTileCollision(this, x, newY);
-        if (tile == null){  //ã‚¿ã‚¤ãƒ«ãªã—
+        if (tile == null){  //ƒ^ƒCƒ‹‚È‚µ
             y = newY;
             onGround = false;
             onCeiling = false;
-        } else {    //ã‚¿ã‚¤ãƒ«ã‚ã‚Š
-            if(vy>0) {  //ä¸‹ã«ç§»å‹•ä¸­ã®æ™‚ï¼Œä¸‹ã®ãƒ–ãƒ­ãƒƒã‚¯ã¨è¡çª
+        } else {    //ƒ^ƒCƒ‹‚ ‚è
+            if(vy>0) {  //‰º‚ÉˆÚ“®’†‚ÌC‰º‚ÌƒuƒƒbƒN‚ÆÕ“Ë
                 y = Map.tilesToPixels(tile.y) - HEIGHT;
                 vy = 0;
                 onGround = true;
-                // åœ°é¢ã«ã„ã‚‹æ™‚ã®ä½ç½®
+                // ’n–Ê‚É‚¢‚é‚ÌˆÊ’u
                 this.defaultX = this.x;
                 this.defaultY = this.y;
             } else if (vy<0) {
@@ -167,22 +167,22 @@ public class Player implements ActionListener{
             }
         }
 
-        //xæ–¹å‘ã®å½“ãŸã‚Šåˆ¤å®š
-    	//ç§»å‹•å…ˆã®é‡ã®æœ‰ç„¡
+        //x•ûŒü‚Ì“–‚½‚è”»’è
+    	//ˆÚ“®æ‚Ìj‚Ì—L–³
       Point needle = map.getNeedleCollision(this, newX, y);
-    	if (needle==null) {   //é‡ãªã—
+    	if (needle==null) {   //j‚È‚µ
             hitCheck_x = false;
-        } else {   //é‡ã‚ã‚Š
+        } else {   //j‚ ‚è
             vx = 0;
             hitCheck_x = true;
         }
-        //yæ–¹å‘ã®å½“ãŸã‚Šåˆ¤å®š
-    	//ç§»å‹•å…ˆã®ã‚¿ã‚¤ãƒ«ã®æœ‰ç„¡
+        //y•ûŒü‚Ì“–‚½‚è”»’è
+    	//ˆÚ“®æ‚Ìƒ^ƒCƒ‹‚Ì—L–³
     	needle = map.getNeedleCollision(this, x, newY);
-      if (needle == null){  //ã‚¿ã‚¤ãƒ«ãªã—
+      if (needle == null){  //ƒ^ƒCƒ‹‚È‚µ
           hitCheck_y = false;
 
-      } else {    //ã‚¿ã‚¤ãƒ«ã‚ã‚Š
+      } else {    //ƒ^ƒCƒ‹‚ ‚è
               vy = 0;
           hitCheck_y = true;
       }
@@ -192,7 +192,7 @@ public class Player implements ActionListener{
       APressed = false;
 
     }
-    // ã‚´ãƒ¼ãƒ«ãƒã‚§ãƒƒã‚¯
+    // ƒS[ƒ‹ƒ`ƒFƒbƒN
     public boolean HitCheck() {
         boolean rtn = false;
         rtn = hitCheck_x || hitCheck_y;
@@ -204,7 +204,7 @@ public class Player implements ActionListener{
         image = icon.getImage();
     }
 
-    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æç”»
+    //ƒvƒŒƒCƒ„[‚ğ•`‰æ
     public void show(Graphics2D g2, int offsetX, int offsetY) {  //OK
         g2.drawImage(image,
                      (int)x + offsetX, (int)y + offsetY,
@@ -214,7 +214,7 @@ public class Player implements ActionListener{
                      null);
     }
 
-    //Selectç”¨
+    //Select—p
     public void show(Graphics2D g2){
         g2.drawImage(image,
                      (int)x , (int)y ,
@@ -224,7 +224,7 @@ public class Player implements ActionListener{
                      null);
     }
 
-    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†
+    //ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—
     private class AnimationThread extends Thread {  //OK
         public void run() {
             while (true) {
@@ -233,7 +233,7 @@ public class Player implements ActionListener{
                 } else {
                     count=0;
                 }
-                //çµµã®åˆ‡ã‚Šæ›¿ãˆ
+                //ŠG‚ÌØ‚è‘Ö‚¦
                 try{
                     Thread.sleep(300);
                 } catch (InterruptedException e) {
@@ -254,28 +254,28 @@ public class Player implements ActionListener{
     public void loadGene(char gene) {
       switch (gene) {
         case '0':
-          // å·¦
+          // ¶
           APressed = true;
           break;
         case '1':
-          // å³
+          // ‰E
           DPressed = true;
           break;
         case '2':
-          // ã‚¸ãƒ£ãƒ³ãƒ—
+          // ƒWƒƒƒ“ƒv
           if (onGround) {
-            // jumpã—ãŸå›æ•°ã‚’æ•°ãˆã‚‹
+            // jump‚µ‚½‰ñ”‚ğ”‚¦‚é
             this.jumpCount++;
             spacePressed = true;
           }
           break;
       }
     }
-    // xåº§æ¨™ã‚’è¿”ã™
+    // xÀ•W‚ğ•Ô‚·
     public int returnX() {
       return (int)this.defaultX;
     }
-    // yåº§æ¨™ã‚’è¿”ã™
+    // yÀ•W‚ğ•Ô‚·
     public int returnY() {
       return (int)this.defaultY;
     }
@@ -284,7 +284,7 @@ public class Player implements ActionListener{
       return this.jumpCount;
     }
 
-    // éºä¼å­ã‚’ã‚»ãƒƒãƒˆ&åˆæœŸåŒ–
+    // ˆâ“`q‚ğƒZƒbƒg&‰Šú‰»
     public void setGene(String gene) {
       this.index = 0;
       this.isFinished = false;
@@ -299,7 +299,7 @@ public class Player implements ActionListener{
       this.isFinished = false;
     }
 
-    // ä»¥ä¸‹ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æ“ä½œ
+    // ˆÈ‰ºƒL[ƒ{[ƒh‘€ì
     public void KeyPressedAnalyze(KeyEvent e){
         int key = e.getKeyCode();
 
